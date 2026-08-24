@@ -4,124 +4,242 @@
 
 .testimonials-section {
   position: relative;
-  background: radial-gradient(circle at 50% 30%, rgba($deep-umber, 0.4) 0%, $obsidian 75%);
+  background: radial-gradient(circle at 50% 35%, rgba($deep-umber, 0.45) 0%, $obsidian 80%);
+  border-top: 1px solid rgba($charcoal, 0.8);
+  border-bottom: 1px solid rgba($charcoal, 0.8);
   overflow: hidden;
+  padding: clamp(60px, 6vw, 120px) 0;
+
+  // Background atmospheric soft light
+  &::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: 380px;
+    background: radial-gradient(ellipse at center, rgba($royal-crimson, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
   .testimonials-container {
     @include container;
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  // Large Quote Layout
-  .testimonial-quote-box {
-    max-width: vw(900);
-    margin: vw(28) auto vw(36);
+  // Hero Spotlight Testimonial Card
+  .testimonial-spotlight-card {
     position: relative;
-    padding: 0 vw(24);
+    width: 100%;
+    max-width: 920px;
+    margin: clamp(28px, 3.5vw, 56px) auto 0;
+    background: linear-gradient(170deg, rgba(29, 14, 19, 0.82) 0%, rgba(13, 10, 10, 0.96) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba($charcoal, 0.9);
+    border-top: 1px solid rgba($champagne, 0.35);
+    border-radius: 6px;
+    padding: clamp(28px, 3.5vw, 56px) clamp(20px, 3vw, 48px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba($royal-crimson, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
     @include breakpoint(mobile) {
-      max-width: 100%;
-      margin: 2rem auto 2.5rem;
-      padding: 0 1.5rem;
+      padding: 2rem 1.25rem;
+      border-radius: 4px;
     }
 
-    .quote-icon-large {
-      font-family: $font-display;
-      font-size: vw(90);
-      line-height: 1;
-      color: $champagne;
-      opacity: 0.65;
-      margin-bottom: -#{vw(18)};
-      user-select: none;
+    // Top Bar: Stars + Verified Pill
+    .spotlight-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 1.5rem;
+    }
 
-      @include breakpoint(mobile) {
-        font-size: 5rem;
-        margin-bottom: -1rem;
+    .spotlight-stars {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: $kundan-gold;
+
+      svg {
+        filter: drop-shadow(0 0 6px rgba(229, 195, 120, 0.6));
       }
     }
 
+    .spotlight-verified-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: $font-body;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: $kundan-gold;
+      background: rgba($kundan-gold, 0.08);
+      border: 1px solid rgba($kundan-gold, 0.3);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    // Large Floating Quote Icon
+    .spotlight-quote-icon {
+      color: $champagne;
+      opacity: 0.85;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 12px rgba(217, 190, 150, 0.3));
+
+      svg {
+        width: clamp(36px, 3vw, 48px);
+        height: clamp(36px, 3vw, 48px);
+      }
+    }
+
+    // Quote Statement
     .quote-text {
       font-family: $font-display;
-      font-size: var(--fs-h3);
+      font-size: clamp(1.25rem, 1.6vw, 1.85rem);
       font-style: italic;
       color: $ink-primary;
-      line-height: 1.45;
-      min-height: vw(130);
+      line-height: 1.48;
+      max-width: 780px;
+      margin: 0 auto 2rem;
+      min-height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
 
       @include breakpoint(mobile) {
-        min-height: 120px;
+        font-size: 1.15rem;
+        min-height: 90px;
+        margin-bottom: 1.5rem;
       }
     }
 
-    .quote-author {
-      font-family: $font-body;
-      font-size: var(--fs-eyebrow);
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: $champagne;
-      margin-top: vw(24);
+    // Bride Signature Lockup
+    .spotlight-author-lockup {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba($charcoal, 0.8);
+      width: 100%;
+      max-width: 600px;
+      justify-content: center;
 
       @include breakpoint(mobile) {
-        margin-top: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
       }
     }
-  }
 
-  // Interactive Avatar Switcher
-  .testimonial-avatars-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: vw(20);
-    margin-bottom: vw(48);
-
-    @include breakpoint(mobile) {
-      gap: 1.25rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .avatar-btn {
+    .spotlight-bride-avatar {
       position: relative;
-      width: vw(74);
-      height: vw(74);
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       overflow: hidden;
-      border: 2px solid rgba($charcoal, 0.9);
-      opacity: 0.45;
-      transform: scale(0.88);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
-      @include focus-ring;
-
-      @include breakpoint(mobile) {
-        width: 64px;
-        height: 64px;
-      }
+      border: 2px solid $champagne;
+      box-shadow: 0 0 16px rgba(229, 195, 120, 0.4), 0 4px 15px rgba(0, 0, 0, 0.7);
+      flex-shrink: 0;
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
+    }
 
-      &.is-active {
-        opacity: 1;
-        transform: scale(1.18);
-        border-color: $champagne;
-        box-shadow: 0 0 vw(25) rgba(199, 36, 46, 0.6), 0 0 vw(12) rgba($champagne, 0.4);
+    .spotlight-bride-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+
+      @include breakpoint(mobile) {
+        align-items: center;
+        text-align: center;
+        width: 100%;
       }
 
-      &:hover:not(.is-active) {
-        opacity: 0.75;
-        transform: scale(0.98);
+      .spotlight-bride-name {
+        font-family: $font-display;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: $champagne;
+        letter-spacing: 0.02em;
+        text-align: inherit;
+      }
+
+      .spotlight-wedding-details {
+        font-size: 0.85rem;
+        color: $ink-secondary;
+        text-align: inherit;
+      }
+
+      .spotlight-look-tag {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba($kundan-gold, 0.85);
+        margin-top: 2px;
+        text-align: inherit;
+      }
+    }
+  }
+
+  // Interactive Bride Selector Rail
+  .testimonial-selector-section {
+    width: 100%;
+    max-width: 920px;
+    margin-top: 2rem;
+  }
+
+  .selector-nav-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 1.5rem;
+
+    .selector-arrow-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba($espresso, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba($champagne, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $champagne;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      @include focus-ring;
+
+      &:hover {
+        background: linear-gradient(135deg, $royal-crimson, $kundan-gold);
+        color: #FFF;
         border-color: $champagne;
+        transform: scale(1.1);
+        box-shadow: 0 0 14px rgba(199, 36, 46, 0.6);
       }
     }
   }
@@ -129,40 +247,134 @@
   // Pagination Dots
   .testimonial-dots {
     display: flex;
-    gap: vw(8);
-    margin-top: -#{vw(28)};
-    margin-bottom: vw(42);
-
-    @include breakpoint(mobile) {
-      gap: 8px;
-      margin-top: -2rem;
-      margin-bottom: 3rem;
-    }
+    align-items: center;
+    gap: 8px;
 
     .dot-btn {
-      width: vw(8);
-      height: vw(8);
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: rgba($champagne, 0.3);
       border: none;
       transition: all 0.3s ease;
       cursor: pointer;
 
-      @include breakpoint(mobile) {
-        width: 8px;
-        height: 8px;
-      }
-
       &.is-active {
         background: linear-gradient(90deg, $champagne, $royal-crimson);
         box-shadow: 0 0 10px rgba(199, 36, 46, 0.7);
-        width: vw(24);
-        border-radius: vw(4);
+        width: 24px;
+        border-radius: 4px;
+      }
+    }
+  }
 
-        @include breakpoint(mobile) {
-          width: 24px;
-          border-radius: 4px;
-        }
+  // 3-Card Bride Selector Rail
+  .bride-selector-rail {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    @include breakpoint(mobile) {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+
+  .bride-selector-card {
+    position: relative;
+    background: rgba($espresso, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba($charcoal, 0.9);
+    border-radius: 4px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    @include focus-ring;
+
+    .selector-card-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid rgba($champagne, 0.3);
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .selector-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+
+      .selector-name {
+        font-family: $font-display;
+        font-size: 1rem;
+        font-weight: 600;
+        color: $ink-primary;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .selector-venue {
+        font-size: 0.75rem;
+        color: $ink-secondary;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    .selector-active-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, $kundan-gold, $royal-crimson);
+      box-shadow: 0 0 10px rgba(229, 195, 120, 0.6);
+      transition: width 0.35s ease;
+    }
+
+    &:hover {
+      background: rgba($deep-umber, 0.6);
+      border-color: rgba($champagne, 0.4);
+      transform: translateY(-3px);
+
+      .selector-card-thumb {
+        border-color: $champagne;
+      }
+    }
+
+    &.is-active {
+      background: rgba($deep-umber, 0.85);
+      border-color: rgba($kundan-gold, 0.6);
+      border-top-color: $kundan-gold;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(199, 36, 46, 0.2);
+
+      .selector-card-thumb {
+        border-color: $kundan-gold;
+        box-shadow: 0 0 10px rgba(229, 195, 120, 0.5);
+      }
+
+      .selector-card-info .selector-name {
+        color: $champagne;
+      }
+
+      .selector-active-indicator {
+        width: 100%;
       }
     }
   }

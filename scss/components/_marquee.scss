@@ -5,7 +5,8 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  padding: 2.5rem 0;
+  margin-top: clamp(48px, 4.5vw, 84px);
+  padding: 2.2rem 0;
   border-top: 1px solid rgba($charcoal, 0.8);
   border-bottom: 1px solid rgba($charcoal, 0.8);
   background: rgba($espresso, 0.4);
@@ -14,7 +15,7 @@
     content: '';
     position: absolute;
     top: 0;
-    width: 15vw;
+    width: clamp(60px, 12vw, 180px);
     height: 100%;
     z-index: 2;
     pointer-events: none;
@@ -22,18 +23,19 @@
 
   &::before {
     left: 0;
-    background: linear-gradient(90deg, $obsidian, transparent);
+    background: linear-gradient(90deg, $obsidian 20%, transparent 100%);
   }
 
   &::after {
     right: 0;
-    background: linear-gradient(270deg, $obsidian, transparent);
+    background: linear-gradient(270deg, $obsidian 20%, transparent 100%);
   }
 
   .press-marquee-track {
     display: flex;
     width: max-content;
     will-change: transform;
+    animation: press-marquee-scroll 30s linear infinite;
 
     &:hover {
       animation-play-state: paused;
@@ -43,63 +45,96 @@
   .press-marquee-group {
     display: flex;
     align-items: center;
-    gap: clamp(3rem, 2rem + 4vw, 6rem);
-    padding-right: clamp(3rem, 2rem + 4vw, 6rem);
+    gap: clamp(2.5rem, 3.5vw, 5.5rem);
+    padding-right: clamp(2.5rem, 3.5vw, 5.5rem);
+    flex-shrink: 0;
   }
 
   .press-logo-item {
     display: flex;
     align-items: center;
-    opacity: 0.45;
-    transition: opacity 0.3s ease, filter 0.3s ease;
+    opacity: 0.4;
+    transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
     cursor: default;
+    flex-shrink: 0;
 
     &:hover {
-      opacity: 0.9;
-      filter: drop-shadow(0 0 10px rgba($champagne, 0.4));
+      opacity: 0.95;
+      transform: scale(1.06);
+      filter: drop-shadow(0 0 10px rgba($champagne, 0.5));
     }
 
     .press-text-logo {
       font-family: $font-display;
-      font-size: 1.65rem;
-      letter-spacing: 0.12em;
+      font-size: 1.5rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: $ink-primary;
       font-weight: 600;
+      white-space: nowrap;
 
       &--vogue {
         font-family: 'Playfair Display', Georgia, serif;
-        font-size: 2.2rem;
+        font-size: 2.1rem;
         letter-spacing: 0.08em;
+      }
+
+      &--bazaar {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 1.55rem;
+        letter-spacing: 0.22em;
+        font-weight: 700;
       }
 
       &--wedding {
         font-family: $font-body;
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 700;
         letter-spacing: 0.22em;
         line-height: 1.1;
         span {
           display: block;
-          font-size: 0.65rem;
-          letter-spacing: 0.45em;
+          font-size: 0.62rem;
+          letter-spacing: 0.42em;
           color: $champagne;
         }
       }
 
       &--femina {
         font-family: 'Playfair Display', Georgia, serif;
-        font-size: 1.95rem;
+        font-size: 1.85rem;
         letter-spacing: 0.18em;
+      }
+
+      &--elle {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 1.95rem;
+        letter-spacing: 0.12em;
+        font-style: italic;
       }
 
       &--shaadi {
         font-family: $font-body;
-        font-size: 1.7rem;
+        font-size: 1.6rem;
         font-weight: 700;
         letter-spacing: 0.02em;
         color: #E25F56;
       }
+
+      &--grazia {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 1.75rem;
+        letter-spacing: 0.24em;
+      }
     }
+  }
+}
+
+@keyframes press-marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
   }
 }

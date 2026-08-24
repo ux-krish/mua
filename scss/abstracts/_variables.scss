@@ -52,7 +52,7 @@ $gutter-mobile: 5vw;
   --state-success: #{$state-success};
   --state-error: #{$state-error};
 
-  // Pure VW Typography Scale locked for exact desktop proportions
+  // Pure VW Typography Scale locked for exact desktop proportions (>=1400px)
   --fs-eyebrow:  #{vw(14)};
   --fs-body:     #{vw(17)};
   --fs-lead:     #{vw(21)};
@@ -61,6 +61,29 @@ $gutter-mobile: 5vw;
   --fs-h1:       #{vw(96)};
   --fs-display:  #{vw(190)};
 
+  // Laptop / Small Desktop (1024px - 1399px)
+  @media (min-width: 1024px) and (max-width: 1399px) {
+    --fs-eyebrow:  0.8125rem;
+    --fs-body:     1rem;
+    --fs-lead:     1.15rem;
+    --fs-h3:       1.85rem;
+    --fs-h2:       3rem;
+    --fs-h1:       4.25rem;
+    --fs-display:  6.5rem;
+  }
+
+  // Tablet / iPad (768px - 1023px)
+  @media (min-width: 768px) and (max-width: 1023px) {
+    --fs-eyebrow:  0.8125rem;
+    --fs-body:     1.05rem;
+    --fs-lead:     1.2rem;
+    --fs-h3:       1.75rem;
+    --fs-h2:       2.75rem;
+    --fs-h1:       3.6rem;
+    --fs-display:  5rem;
+  }
+
+  // Mobile (<768px)
   @media (max-width: 767px) {
     --fs-eyebrow:  0.75rem;
     --fs-body:     0.95rem;

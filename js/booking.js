@@ -13,7 +13,7 @@ export function initBooking() {
     waDirectBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const text = encodeURIComponent("Hi Aanya! I would love to enquire about bridal/makeup bookings and check your date availability.");
-      window.open(`https://wa.me/919876543210?text=${text}`, '_blank', 'noopener,noreferrer');
+      window.open(`https://wa.me/91XXXXXXXXXX?text=${text}`, '_blank', 'noopener,noreferrer');
     });
   }
 
@@ -28,7 +28,7 @@ export function initBooking() {
       group.classList.remove('has-success');
     }
     if (feedback) {
-      feedback.textContent = message;
+      feedback.innerHTML = `<svg class="lucide lucide-circle-alert" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg><span>${message}</span>`;
       feedback.classList.add('is-visible');
     }
   }
@@ -41,7 +41,7 @@ export function initBooking() {
       group.classList.add('has-success');
     }
     if (feedback) {
-      feedback.textContent = '';
+      feedback.innerHTML = '';
       feedback.classList.remove('is-visible');
     }
   }

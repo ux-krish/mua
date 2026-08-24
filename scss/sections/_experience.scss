@@ -4,169 +4,265 @@
 
 .experience-section {
   position: relative;
-  background: radial-gradient(circle at 50% 50%, rgba($deep-umber, 0.35) 0%, $obsidian 75%);
+  background: radial-gradient(circle at 50% 40%, rgba($deep-umber, 0.45) 0%, $obsidian 80%);
   border-top: 1px solid rgba($charcoal, 0.8);
   border-bottom: 1px solid rgba($charcoal, 0.8);
   overflow: hidden;
+  padding: clamp(60px, 6vw, 120px) 0;
 
-  .experience-timeline {
+  // Background atmospheric glow
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 350px;
+    background: radial-gradient(ellipse at center, rgba($royal-crimson, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .journey-track-wrapper {
     position: relative;
+    z-index: 2;
+    margin-top: clamp(32px, 3.5vw, 64px);
+  }
+
+  // Horizontal continuous gold connecting filament on desktop
+  .journey-filament-line {
+    position: absolute;
+    top: 56px;
+    left: 5%;
+    width: 90%;
+    height: 1.5px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba($champagne, 0.25) 10%, 
+      rgba($kundan-gold, 0.8) 50%, 
+      rgba($champagne, 0.25) 90%, 
+      transparent 100%
+    );
+    box-shadow: 0 0 14px rgba($kundan-gold, 0.4);
+    z-index: 1;
+    pointer-events: none;
+
+    @include breakpoint(laptop) { display: none; }
+    @include breakpoint(tablet) { display: none; }
+    @include breakpoint(mobile) { display: none; }
+  }
+
+  .journey-steps-grid {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: vw(20);
-    margin-top: vw(60);
-
-    // Continuous Horizontal Hairline Filament passing through the exact center of the node circles
-    &::before {
-      content: '';
-      position: absolute;
-      top: vw(60);
-      left: 3%;
-      width: 94%;
-      height: 1px;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba($champagne, 0.2) 8%, 
-        rgba($champagne, 0.6) 25%, 
-        rgba($rose-gold, 0.8) 50%, 
-        rgba($champagne, 0.6) 75%, 
-        rgba($champagne, 0.2) 92%, 
-        transparent 100%
-      );
-      box-shadow: 0 0 12px rgba($rose-gold, 0.35);
-      z-index: 1;
-
-      @include breakpoint(tablet) { display: none; }
-      @include breakpoint(mobile) { display: none; }
-    }
+    gap: clamp(12px, 1.2vw, 24px);
 
     @include breakpoint(laptop) {
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 1.25rem;
+
+      .journey-step-card:nth-child(4) {
+        grid-column: 1 / 2;
+      }
+      .journey-step-card:nth-child(5) {
+        grid-column: 2 / 3;
+      }
     }
 
     @include breakpoint(tablet) {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      margin-top: 2.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+
+      .journey-step-card:last-child {
+        grid-column: 1 / -1;
+        max-width: 480px;
+        margin: 0 auto;
+        width: 100%;
+      }
     }
 
     @include breakpoint(mobile) {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: 1.25rem;
     }
   }
 
-  .timeline-step-card {
+  // Luxury Journey Card Architecture
+  .journey-step-card {
     position: relative;
-    z-index: 2;
-    background: rgba($espresso, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: linear-gradient(170deg, rgba(29, 14, 19, 0.75) 0%, rgba(13, 10, 10, 0.95) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba($charcoal, 0.9);
-    border-top: 1px solid rgba($champagne, 0.2);
-    padding: vw(32) vw(20) vw(36);
-    border-radius: vw(2);
+    border-top: 1px solid rgba($champagne, 0.28);
+    border-radius: 4px;
+    padding: clamp(20px, 1.8vw, 32px) clamp(16px, 1.4vw, 24px);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: vw(16);
+    justify-content: space-between;
+    min-height: clamp(260px, 18vw, 320px);
+    cursor: pointer;
     transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
     @include focus-ring;
 
-    @include breakpoint(mobile) {
-      padding: 2rem 1.5rem;
-      gap: 1rem;
-      border-radius: 2px;
+    @include breakpoint(tablet) {
+      min-height: auto;
+      padding: 1.75rem 1.5rem;
     }
 
-    // Node Circle precisely positioned along the filament
-    .step-number-wrap {
-      position: relative;
-      z-index: 3;
-      width: vw(56);
-      height: vw(56);
+    @include breakpoint(mobile) {
+      min-height: auto;
+      padding: 1.5rem 1.25rem;
+    }
+
+    // Top Header Cluster
+    .step-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 1.25rem;
+    }
+
+    .step-badge-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .step-phase-pill {
+      font-family: $font-body;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: $kundan-gold;
+      background: rgba($kundan-gold, 0.08);
+      border: 1px solid rgba($kundan-gold, 0.25);
+      padding: 2px 8px;
+      border-radius: 999px;
+      align-self: flex-start;
+      transition: all 0.3s ease;
+    }
+
+    .step-numeral {
+      font-family: $font-display;
+      font-size: clamp(1.8rem, 2vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1;
+      color: rgba($champagne, 0.35);
+      letter-spacing: -0.02em;
+      transition: color 0.4s ease;
+    }
+
+    .step-icon-orb {
+      width: clamp(42px, 3vw, 50px);
+      height: clamp(42px, 3vw, 50px);
       border-radius: 50%;
-      background: #0C0A08;
-      border: 1px solid rgba($champagne, 0.45);
+      background: linear-gradient(135deg, rgba($espresso, 0.95) 0%, rgba($royal-crimson, 0.4) 100%);
+      border: 1.5px solid rgba($champagne, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: $font-display;
-      font-size: vw(21);
       color: $champagne;
-      font-weight: 600;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 0 4px rgba($obsidian, 0.9);
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 0 3px rgba($obsidian, 0.8);
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 
-      @include breakpoint(mobile) {
-        width: 52px;
-        height: 52px;
-        font-size: 1.25rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 0 3px $obsidian;
+      svg {
+        width: clamp(20px, 1.4vw, 24px);
+        height: clamp(20px, 1.4vw, 24px);
+        transition: transform 0.4s ease;
       }
+    }
+
+    // Card Body Content
+    .step-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
     .step-title {
       font-family: $font-display;
-      font-size: vw(22);
+      font-size: clamp(1.1rem, 1.15vw, 1.35rem);
       color: $ink-primary;
-      line-height: 1.2;
       font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
       transition: color 0.3s ease;
-
-      @include breakpoint(mobile) {
-        font-size: 1.25rem;
-      }
     }
 
     .step-desc {
-      font-size: vw(13.5);
+      font-size: clamp(0.78rem, 0.78vw, 0.88rem);
       color: $ink-secondary;
-      line-height: 1.65;
-
-      @include breakpoint(mobile) {
-        font-size: 0.8125rem;
-      }
+      line-height: 1.6;
     }
 
-    // Subtle bottom accent hairline on card
-    &::after {
-      content: '';
+    // Bottom Glowing Edge
+    .step-glow-accent {
       position: absolute;
       bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
       width: 0%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, $rose-gold, transparent);
-      box-shadow: 0 0 10px rgba($rose-gold, 0.6);
-      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      height: 2.5px;
+      background: linear-gradient(90deg, $kundan-gold, $royal-crimson);
+      box-shadow: 0 0 12px rgba(229, 195, 120, 0.75);
+      transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    &:hover {
-      background: rgba($deep-umber, 0.65);
-      border-color: rgba($rose-gold, 0.5);
-      border-top-color: $rose-gold;
+    // Interactive Hover & Focus State
+    &:hover,
+    &:focus-visible {
       transform: translateY(-8px);
-      box-shadow: 0 vw(20) vw(40) rgba(0, 0, 0, 0.7);
+      background: linear-gradient(170deg, rgba(45, 20, 28, 0.85) 0%, rgba(18, 12, 14, 0.98) 100%);
+      border-color: rgba($kundan-gold, 0.5);
+      border-top-color: $kundan-gold;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(199, 36, 46, 0.25);
 
-      .step-number-wrap {
-        background: linear-gradient(135deg, $royal-crimson 0%, $crimson-deep 100%);
+      .step-phase-pill {
+        background: $kundan-gold;
+        color: $obsidian;
+        border-color: $kundan-gold;
+        box-shadow: 0 0 10px rgba(229, 195, 120, 0.6);
+      }
+
+      .step-numeral {
+        color: $kundan-gold;
+        text-shadow: 0 0 15px rgba(229, 195, 120, 0.4);
+      }
+
+      .step-icon-orb {
+        background: linear-gradient(135deg, $royal-crimson 0%, $kundan-gold 100%);
         color: #FFFFFF;
         border-color: $champagne;
-        transform: scale(1.15);
-        box-shadow: 0 0 vw(25) rgba(199, 36, 46, 0.7), 0 0 0 4px rgba($obsidian, 0.8);
+        transform: scale(1.12) rotate(6deg);
+        box-shadow: 0 0 20px rgba(199, 36, 46, 0.85), 0 0 0 3px rgba($obsidian, 0.9);
+
+        svg {
+          transform: scale(1.1);
+        }
       }
 
       .step-title {
         color: $champagne;
       }
 
-      &::after {
-        width: 80%;
+      .step-glow-accent {
+        width: 100%;
+      }
+    }
+
+    // Special Highlight for Masterpiece Step (03)
+    &.is-highlight {
+      border-top-color: rgba($royal-crimson, 0.6);
+
+      .step-icon-orb {
+        border-color: rgba($royal-crimson, 0.6);
       }
     }
   }

@@ -9,44 +9,18 @@
 @use '../abstracts/functions' as *;
 
 // =========================================================
-// 1. HEADER / NAV
+// 1. HEADER / NAV (Delegated to _navigation.scss)
 // =========================================================
-@include breakpoint(mobile) {
-  .header {
-    padding: 0;
 
-    .nav-container {
-      padding: 1rem 5vw;
-    }
-
-    // Hide desktop nav links on mobile
-    .nav-links-wrap {
-      display: none !important;
-    }
-
-    // Hide the drawer toggle (hamburger), show mobile menu toggle
-    .btn-drawer-toggle:not(.btn-mobile-menu-toggle) {
-      display: none !important;
-    }
-
-    // Show mobile hamburger
-    .btn-mobile-menu-toggle {
-      display: flex !important;
-    }
-
-    // Hide desktop Book Now in nav
-    .header-cta {
-      display: none !important;
-    }
-  }
-}
 
 // =========================================================
 // 2. HERO — Full-bleed portrait, text overlaid at bottom
 // =========================================================
 @include breakpoint(mobile) {
   .hero-section {
-    min-height: 100svh;
+    height: 100dvh;
+    min-height: 550px;
+    max-height: none;
     padding-top: 0;
     padding-bottom: 0;
     background: $obsidian;
@@ -56,7 +30,8 @@
     .hero-container {
       display: block;
       position: relative;
-      min-height: 100svh;
+      height: 100dvh;
+      min-height: 550px;
       padding: 0;
       max-width: 100%;
     }
@@ -161,12 +136,12 @@
     // Content: positioned over the image at bottom
     .hero-content {
       position: absolute;
-      bottom: 5.75rem; // above the stats strip
+      bottom: 6.5rem; // generous spacing above stats strip border
       left: 0;
       right: 0;
       z-index: 2;
       padding: 0 5vw;
-      gap: 1rem;
+      gap: 1.15rem;
       align-items: flex-start;
       text-align: left;
 
@@ -180,7 +155,7 @@
 
       .hero-headline {
         line-height: 1.05;
-        font-size: clamp(2.4rem, 11vw, 3.4rem);
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
 
         .headline-line-1 {
           font-size: 1em;
@@ -196,9 +171,10 @@
 
       .hero-lead {
         font-size: 0.85rem;
-        max-width: 92%;
+        max-width: 95%;
         color: rgba($ink-secondary, 0.9);
         line-height: 1.55;
+        margin-bottom: 0.35rem;
       }
 
       .hero-ctas-wrap {
@@ -206,8 +182,9 @@
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
-        gap: 0.85rem;
-        margin-top: 0.25rem;
+        gap: 1.15rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1.25rem; // Clear breathing room from border line below
 
         .btn {
           width: auto;
@@ -216,7 +193,7 @@
           align-items: center;
           justify-content: center;
           text-align: center;
-          padding: 0.9rem 2rem;
+          padding: 0.95rem 2rem;
           font-size: 0.8125rem;
           letter-spacing: 0.16em;
           border-radius: 3px;
@@ -777,39 +754,24 @@
     }
   }
 
-  // Press logos: 2x2 grid
+  // Press Marquee continuous mobile slider with space
   .press-marquee-wrapper {
-    overflow: hidden;
+    margin-top: 3.5rem;
+    padding: 1.75rem 0;
 
     .press-marquee-track {
-      animation: none !important;
-      transform: none !important;
-      display: block;
+      display: flex !important;
+      animation: press-marquee-scroll 24s linear infinite !important;
     }
 
     .press-marquee-group {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem 2rem;
-      padding: 0 5vw;
-      animation: none !important;
+      display: flex !important;
+      gap: 2.5rem;
+      padding-right: 2.5rem;
 
       &[aria-hidden="true"] {
-        display: none !important;
+        display: flex !important;
       }
-    }
-
-    .press-logo-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .press-text-logo {
-      &--vogue { font-size: 1.8rem; }
-      &--wedding { font-size: 0.9rem; }
-      &--femina { font-size: 1.4rem; }
-      &--shaadi { font-size: 1.2rem; }
     }
   }
 }
@@ -1043,10 +1005,33 @@
       min-height: auto;
     }
 
-    // Image at top, fixed height
+    // Full image & video display on mobile (no cropping)
     .case-study-media {
-      min-height: 50vw;
-      max-height: 55vh;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      min-height: 280px;
+      max-height: 62vh;
+      background: radial-gradient(circle at center, rgba($espresso, 0.9) 0%, #080405 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      .modal-case-img,
+      .modal-case-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      .modal-motion-badge {
+        bottom: 0.85rem;
+        left: 0.85rem;
+        padding: 5px 12px;
+        font-size: 0.62rem;
+      }
     }
 
     // Body scrolls below image
@@ -1100,11 +1085,6 @@
 
   .reel-close-btn {
     top: 1rem;
-    right: 1rem;
-  }
-
-  .reel-mute-btn {
-    bottom: 100px;
     right: 1rem;
   }
 

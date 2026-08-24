@@ -3,7 +3,7 @@
 
 .form-group {
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 1.85rem;
   display: flex;
   flex-direction: column;
 
@@ -14,18 +14,26 @@
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: $champagne;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.45rem;
     display: flex;
     justify-content: space-between;
 
     .required-star {
       color: $rose-gold;
+      transition: color 0.3s ease;
     }
+  }
+
+  .input-field-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .form-control {
     width: 100%;
-    padding: 0.85rem 0;
+    padding: 0.75rem 0;
     font-family: $font-body;
     font-size: 1rem;
     color: $ink-primary;
@@ -47,7 +55,7 @@
     }
   }
 
-  // Animated Focus Underline
+  // Animated Focus Underline (Glued directly to input-field-wrap)
   .focus-line {
     position: absolute;
     bottom: 0;
@@ -56,7 +64,7 @@
     height: 2px;
     background: linear-gradient(90deg, $champagne, $rose-gold);
     box-shadow: 0 0 10px rgba($rose-gold, 0.5);
-    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
   }
 
@@ -71,6 +79,7 @@
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
     padding-right: 2rem;
+    cursor: pointer;
 
     option {
       background-color: $espresso;
@@ -80,18 +89,28 @@
 
   textarea.form-control {
     resize: vertical;
-    min-height: 90px;
+    min-height: 85px;
   }
 
-  // Feedback validation messages
+  // Feedback validation messages - Airy, elegant and clean
   .form-feedback {
-    font-size: 0.75rem;
-    margin-top: 0.4rem;
-    min-height: 1rem;
-    color: $state-error;
+    font-size: 0.78rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-top: 0.55rem;
+    min-height: 1.1rem;
+    color: #FF8585;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(-3px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+
+    svg {
+      flex-shrink: 0;
+      color: #FF6B6B;
+    }
 
     &.is-visible {
       opacity: 1;
@@ -101,17 +120,22 @@
 
   &.has-error {
     .form-control {
-      border-bottom-color: $state-error;
+      border-bottom-color: rgba(#FF6B6B, 0.65);
     }
     .focus-line {
-      background: $state-error;
+      background: #FF6B6B;
+      box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
       width: 100%;
+    }
+    .form-label .required-star {
+      color: #FF6B6B;
     }
   }
 
   &.has-success {
     .focus-line {
       background: $state-success;
+      box-shadow: 0 0 8px rgba(78, 175, 124, 0.4);
     }
   }
 }

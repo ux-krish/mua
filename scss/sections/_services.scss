@@ -44,6 +44,12 @@
     overflow: hidden;
     @include focus-ring;
 
+    @include breakpoint(tablet) {
+      padding: 2.25rem 1.5rem;
+      gap: 1rem;
+      border-radius: 4px;
+    }
+
     @include breakpoint(mobile) {
       padding: 2rem 1.5rem;
       gap: 1rem;
@@ -82,10 +88,16 @@
       font-size: clamp(0.75rem, 0.8vw, 0.95rem);
       color: $ink-secondary;
       line-height: 1.5;
-      max-width: 18vw;
+      max-width: 240px;
+
+      @include breakpoint(tablet) {
+        max-width: 100%;
+        font-size: 0.95rem;
+      }
 
       @include breakpoint(mobile) {
         max-width: 100%;
+        font-size: 0.85rem;
       }
     }
 

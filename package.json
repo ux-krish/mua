@@ -12,7 +12,8 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "gsap": "^3.12.5"
+    "gsap": "^3.12.5",
+    "lucide": "^1.34.0"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",

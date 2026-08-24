@@ -7,24 +7,24 @@ export function initNavigation() {
   const header = document.querySelector('.header');
   const navLinks = document.querySelectorAll('.nav-link');
   const indicator = document.querySelector('.nav-active-indicator');
-  const drawerToggle = document.querySelector('.btn-drawer-toggle');
+  const drawerToggle = document.querySelector('#header-drawer-toggle');
   const drawer = document.querySelector('.quick-drawer');
   const drawerClose = document.querySelector('.drawer-close-btn');
   const drawerBackdrop = document.querySelector('.drawer-overlay-backdrop');
   
-  const mobileMenuToggle = document.querySelector('.btn-mobile-menu-toggle');
-  const mobileMenu = document.querySelector('.mobile-menu');
+  const mobileMenuToggle = document.querySelector('#header-mobile-toggle');
+  const mobileMenu = document.querySelector('#mobile-nav-dialog') || document.querySelector('.mobile-menu');
   const mobileMenuClose = document.querySelector('.mobile-menu-close');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-  // Header Scroll State
+  // Header Scroll State (Passive listener for 60fps scrolling)
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 80) {
+    if (window.scrollY > 60) {
       header?.classList.add('scrolled');
     } else {
       header?.classList.remove('scrolled');
     }
-  });
+  }, { passive: true });
 
   // Active Section Underline Indicator
   function updateIndicator(link, immediate = false) {
@@ -62,7 +62,7 @@ export function initNavigation() {
   window.addEventListener('resize', () => {
     currentActiveLink = document.querySelector('.nav-link.active') || navLinks[0];
     updateIndicator(currentActiveLink, true);
-  });
+  }, { passive: true });
 
   // ScrollTrigger active section tracking
   const sections = document.querySelectorAll('section[id]');
@@ -93,12 +93,14 @@ export function initNavigation() {
   const openDrawer = () => {
     drawer?.classList.add('is-open');
     drawerBackdrop?.classList.add('is-open');
+    drawerToggle?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   };
 
   const closeDrawer = () => {
     drawer?.classList.remove('is-open');
     drawerBackdrop?.classList.remove('is-open');
+    drawerToggle?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   };
 
@@ -106,25 +108,84 @@ export function initNavigation() {
   drawerClose?.addEventListener('click', closeDrawer);
   drawerBackdrop?.addEventListener('click', closeDrawer);
 
-  // Mobile Menu Controls
+  // Mobile Menu Controls with Bulletproof GSAP Top-to-Bottom Slide
+  let mobileMenuTl = null;
+
   const openMobileMenu = () => {
-    mobileMenu?.classList.add('is-open');
+    if (!mobileMenu) return;
+    
+    if (mobileMenuTl) mobileMenuTl.kill();
+
+    mobileMenu.classList.add('is-open');
+    mobileMenuToggle?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
-    gsap.fromTo('.mobile-nav-item', {
-      y: 30,
+
+    mobileMenuTl = gsap.timeline();
+
+    mobileMenuTl.fromTo(mobileMenu, {
+      y: '-100%',
+      opacity: 0,
+      scale: 0.98,
+      transformOrigin: 'top center'
+    }, {
+      y: '0%',
+      opacity: 1,
+      scale: 1,
+      duration: 0.45,
+      ease: 'power3.out',
+      clearProps: 'transform'
+    })
+    .fromTo('.mobile-menu-header', {
+      y: -15,
       opacity: 0
     }, {
       y: 0,
       opacity: 1,
-      duration: 0.6,
-      stagger: 0.08,
+      duration: 0.3,
       ease: 'power3.out'
-    });
+    }, '-=0.3')
+    .fromTo('.mobile-nav-item', {
+      y: -15,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.35,
+      stagger: 0.03,
+      ease: 'power3.out'
+    }, '-=0.25')
+    .fromTo('.mobile-menu-footer', {
+      y: 15,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.3,
+      ease: 'power3.out'
+    }, '-=0.25');
   };
 
   const closeMobileMenu = () => {
-    mobileMenu?.classList.remove('is-open');
+    if (!mobileMenu) return;
+
+    if (mobileMenuTl) mobileMenuTl.kill();
+
+    mobileMenuToggle?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+
+    mobileMenuTl = gsap.timeline({
+      onComplete: () => {
+        mobileMenu.classList.remove('is-open');
+        gsap.set(mobileMenu, { clearProps: 'all' });
+      }
+    });
+
+    mobileMenuTl.to(mobileMenu, {
+      y: '-100%',
+      opacity: 0,
+      duration: 0.35,
+      ease: 'power3.in'
+    });
   };
 
   mobileMenuToggle?.addEventListener('click', openMobileMenu);

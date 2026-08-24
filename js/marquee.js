@@ -1,16 +1,14 @@
-import gsap from 'gsap';
-
 export function initMarquee() {
   const track = document.querySelector('.press-marquee-track');
   if (!track) return;
 
-  const tween = gsap.to(track, {
-    xPercent: -50,
-    duration: 25,
-    ease: 'none',
-    repeat: -1
-  });
-
-  track.addEventListener('mouseenter', () => tween.pause());
-  track.addEventListener('mouseleave', () => tween.play());
+  // Clone groups to guarantee there is never any blank slide on ultra-wide screens (4K / 3840px)
+  const groups = track.querySelectorAll('.press-marquee-group');
+  if (groups.length === 2) {
+    groups.forEach(g => {
+      const clone = g.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+  }
 }

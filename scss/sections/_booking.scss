@@ -51,8 +51,12 @@
     align-items: center;
 
     @include breakpoint(tablet) {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 3.5rem;
+      max-width: 680px;
+      margin: 0 auto;
     }
 
     @include breakpoint(mobile) {
@@ -69,6 +73,13 @@
     text-align: left;
     gap: vw(28);
 
+    @include breakpoint(tablet) {
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      gap: 1.75rem;
+    }
+
     @include breakpoint(mobile) {
       gap: 2rem;
     }
@@ -81,9 +92,17 @@
       line-height: 1.1;
       width: 100%;
 
+      @include breakpoint(tablet) {
+        align-items: center;
+        text-align: center;
+      }
+
       span {
         display: block;
         text-align: left;
+        @include breakpoint(tablet) {
+          text-align: center;
+        }
       }
 
       .accent-kajal {
@@ -104,6 +123,11 @@
       max-width: vw(480);
       text-align: left;
 
+      @include breakpoint(tablet) {
+        text-align: center;
+        max-width: 560px;
+      }
+
       @include breakpoint(mobile) {
         max-width: 100%;
       }
@@ -117,6 +141,11 @@
       gap: 1rem;
       width: 100%;
       max-width: 460px;
+
+      @include breakpoint(tablet) {
+        align-items: center;
+        text-align: center;
+      }
 
       .btn--whatsapp {
         width: auto;
@@ -140,6 +169,14 @@
       border-top: 1px solid rgba($charcoal, 0.8);
       width: 100%;
 
+      @include breakpoint(tablet) {
+        align-items: center;
+        max-width: 480px;
+        margin-top: 1rem;
+        padding-top: 1.5rem;
+        gap: 1.25rem;
+      }
+
       @include breakpoint(mobile) {
         margin-top: 1rem;
         padding-top: 1.5rem;
@@ -153,6 +190,11 @@
         color: $ink-primary;
         font-size: var(--fs-body);
         text-align: left;
+
+        @include breakpoint(tablet) {
+          gap: 1rem;
+          font-size: 1rem;
+        }
 
         @include breakpoint(mobile) {
           gap: 1rem;
@@ -183,6 +225,11 @@
       gap: vw(16);
       margin-top: vw(8);
 
+      @include breakpoint(tablet) {
+        gap: 1.25rem;
+        margin-top: 0.75rem;
+      }
+
       @include breakpoint(mobile) {
         gap: 1.25rem;
         margin-top: 0.5rem;
@@ -200,6 +247,12 @@
         font-size: vw(13);
         transition: all 0.3s ease;
         @include focus-ring;
+
+        @include breakpoint(tablet) {
+          width: 44px;
+          height: 44px;
+          font-size: 0.9rem;
+        }
 
         @include breakpoint(mobile) {
           width: 42px;
@@ -226,6 +279,13 @@
     padding: vw(48);
     border-radius: 2px;
     box-shadow: 0 vw(20) vw(50) rgba(0, 0, 0, 0.6);
+
+    @include breakpoint(tablet) {
+      width: 100%;
+      max-width: 650px;
+      padding: 2.5rem 2rem;
+      border-radius: 6px;
+    }
 
     @include breakpoint(mobile) {
       padding: 2rem 1.5rem;

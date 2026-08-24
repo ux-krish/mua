@@ -1,20 +1,23 @@
 import gsap from 'gsap';
 import { Flip } from 'gsap/Flip';
+import { isHighEndDevice } from './adaptive-media.js';
 
 gsap.registerPlugin(Flip);
 
 const base = import.meta.env.BASE_URL || '/';
 const asset = (p) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
 
-// Comprehensive Portfolio Case Study Data — Curated Haute Couture Looks
+// Comprehensive Portfolio Case Study Data — Dual Media (MP4 for high-end CPU/bandwidth, GIF for low-speed/low-CPU)
 export const portfolioData = [
   {
     id: 'look-1',
     title: 'The Royal Kundan & Polki Bride',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: asset('/assets/images/48495647-woman-9419481.jpg'),
-    video: asset('/assets/videos/show_a_smile_1080p_202608240523.mp4'),
+    imageBase: asset('/assets/images/48495647-woman-9419481'),
+    image: asset('/assets/images/48495647-woman-9419481-md.webp'),
+    video: asset('/assets/videos/show_a_smile_1080p_202608240523_480p.mp4'),
+    gif: asset('/assets/videos/show_a_smile_1080p_202608240523.gif'),
     story: 'Designed for a regal heritage palace wedding in Udaipur. Features an incandescent dewy base, smokey almond-eye contour, and bespoke crimson lip framing an authentic Sabyasachi zardozi drape.',
     skinFinish: 'Luminous 24K Polki HD Glow',
     jewellery: 'Heritage Uncut Polki Matha Patti & Choker',
@@ -26,8 +29,10 @@ export const portfolioData = [
     title: 'Antique Champagne Gold Maharani',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: asset('/assets/images/48495647-bride-9414692_1920.jpg'),
-    video: asset('/assets/videos/smile_her_1080p_202608240531.mp4'),
+    imageBase: asset('/assets/images/48495647-bride-9414692_1920'),
+    image: asset('/assets/images/48495647-bride-9414692_1920-md.webp'),
+    video: asset('/assets/videos/smile_her_1080p_202608240531_480p.mp4'),
+    gif: asset('/assets/videos/smile_her_1080p_202608240531.gif'),
     story: 'Crafted for a majestic evening varmala ceremony in Jaipur. Warm molten-gold eyeshadow, defined graphic wing, and sculpted velvet nude-rose lips complementing antique gold zardozi.',
     skinFinish: 'Micro-Dew Velvet Satin Base',
     jewellery: 'Grand Kundan Waterfall Choker & Borla Tikka',
@@ -39,8 +44,10 @@ export const portfolioData = [
     title: 'Pastel Diamond & Rose Quartz Glam',
     category: 'party',
     categoryLabel: 'Sangeet & Reception',
-    image: asset('/assets/images/48495647-woman-9417377.jpg'),
-    video: asset('/assets/videos/smile_her_202608240536.mp4'),
+    imageBase: asset('/assets/images/48495647-woman-9417377'),
+    image: asset('/assets/images/48495647-woman-9417377-md.webp'),
+    video: asset('/assets/videos/smile_her_202608240536_480p.mp4'),
+    gif: asset('/assets/videos/smile_her_202608240536.gif'),
     story: 'A modern fairytale look designed for an extravagant Mumbai reception. Soft frosted rose eyelids with delicate silver micro-shimmer, glowing glass skin, and glossy terracotta blush.',
     skinFinish: 'Glass Skin Radiance with Rose Quartz Illuminator',
     jewellery: 'Tiered Rose-Cut Diamond Collar & Chandelier Earrings',
@@ -52,8 +59,10 @@ export const portfolioData = [
     title: 'Velvet Wine & Emerald Sangeet Soirée',
     category: 'party',
     categoryLabel: 'Sangeet & Reception',
-    image: asset('/assets/images/48495647-bride-9417324_1920.jpg'),
-    video: asset('/assets/videos/smile_her_1080p_202608240532.mp4'),
+    imageBase: asset('/assets/images/48495647-bride-9417324_1920'),
+    image: asset('/assets/images/48495647-bride-9417324_1920-md.webp'),
+    video: asset('/assets/videos/smile_her_1080p_202608240532_480p.mp4'),
+    gif: asset('/assets/videos/smile_her_1080p_202608240532.gif'),
     story: 'Created for a high-energy celebrity Sangeet night. Features multi-dimensional copper-bronze foil lids, smudged kohl waterline, and a deep berry velvet matte lip paired with emerald polki.',
     skinFinish: 'Sweat-Resistant 16-Hour HD Matte Finish',
     jewellery: 'Emerald Drop Polki Choker & Maang Tikka',
@@ -65,8 +74,10 @@ export const portfolioData = [
     title: 'Sculpted Sunset Bronze & Rose Gold',
     category: 'celebrity',
     categoryLabel: 'Celebrity & Red Carpet',
-    image: asset('/assets/images/48495647-woman-9417380_1920.jpg'),
-    video: asset('/assets/videos/smile_her_1080p_202608240529.mp4'),
+    imageBase: asset('/assets/images/48495647-woman-9417380_1920'),
+    image: asset('/assets/images/48495647-woman-9417380_1920-md.webp'),
+    video: asset('/assets/videos/smile_her_1080p_202608240529_480p.mp4'),
+    gif: asset('/assets/videos/smile_her_1080p_202608240529.gif'),
     story: 'Featured on the red carpet and bridal fashion week. Bronzed cheekbone sculpting, warm gold halo eyes, and crisp lip architecture with high-shine peach-nude gloss.',
     skinFinish: 'HD 4K Camera-Ready Radiance',
     jewellery: 'Rose Gold Temple Choker & Filigree Chaandbalis',
@@ -78,8 +89,10 @@ export const portfolioData = [
     title: 'South Indian Temple Gold & Silk Heritage',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: asset('/assets/images/iqraagrapix-wedding-9589653_1920.jpg'),
-    video: asset('/assets/videos/smile_her_1080p_202608240530.mp4'),
+    imageBase: asset('/assets/images/iqraagrapix-wedding-9589653_1920'),
+    image: asset('/assets/images/iqraagrapix-wedding-9589653_1920-md.webp'),
+    video: asset('/assets/videos/smile_her_1080p_202608240530_480p.mp4'),
+    gif: asset('/assets/videos/smile_her_1080p_202608240530.gif'),
     story: 'A magnificent heritage South Indian bridal look in ivory and gold Kanjivaram silk, layered 22K antique temple jewellery, and sculpted winged eyes with radiant coral lips.',
     skinFinish: 'Traditional Illuminated Dewy Finish',
     jewellery: '22K Antique Temple Gold Choker, Kasu Mala & Maang Tikka',
@@ -91,8 +104,10 @@ export const portfolioData = [
     title: 'Crimson Navratan Zardozi Splendor',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: asset('/assets/images/48495647-bride-9414715_1920.jpg'),
-    video: asset('/assets/videos/smile_her_202608240537.mp4'),
+    imageBase: asset('/assets/images/48495647-bride-9414715_1920'),
+    image: asset('/assets/images/48495647-bride-9414715_1920-md.webp'),
+    video: asset('/assets/videos/smile_her_202608240537_480p.mp4'),
+    gif: asset('/assets/videos/smile_her_202608240537.gif'),
     story: 'A showstopping North Indian bridal look featuring hand-cut Navratan gemstones, graphic winged liner with double cut crease, and rich crimson lip contour designed for 4K video.',
     skinFinish: 'Ultra-Flawless Camera-Proof HD Base',
     jewellery: 'Multicolor Gemstone Navratan Polki Choker & Oversized Nath',
@@ -104,8 +119,10 @@ export const portfolioData = [
     title: 'Silver Starlight Cut-Crease Editorial',
     category: 'editorial',
     categoryLabel: 'Fashion Editorial',
-    image: asset('/assets/images/magicalbrushes-indian-woman-7137926_1920.jpg'),
-    video: asset('/assets/videos/smile_her_202608240535.mp4'),
+    imageBase: asset('/assets/images/magicalbrushes-indian-woman-7137926_1920'),
+    image: asset('/assets/images/magicalbrushes-indian-woman-7137926_1920-md.webp'),
+    video: asset('/assets/videos/smile_her_202608240535_480p.mp4'),
+    gif: asset('/assets/videos/smile_her_202608240535.gif'),
     story: 'An avant-garde high-fashion editorial look featuring high-impact silver foil pigments, warm sunset transition shading, glowing strobed cheekbones, and hot pink velvet pout.',
     skinFinish: 'Editorial Strobe & High-Gloss Finish',
     jewellery: 'Delicate Pearl Choker & Kundan Nath Ring',
@@ -117,8 +134,10 @@ export const portfolioData = [
     title: 'Traditional Bengali Chandan Heritage',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: asset('/assets/images/magicalbrushes-woman-6555890_1920.jpg'),
-    video: asset('/assets/videos/smile_her_202608240547.mp4'),
+    imageBase: asset('/assets/images/magicalbrushes-woman-6555890_1920'),
+    image: asset('/assets/images/magicalbrushes-woman-6555890_1920-md.webp'),
+    video: asset('/assets/videos/smile_her_202608240547_480p.mp4'),
+    gif: asset('/assets/videos/smile_her_202608240547.gif'),
     story: 'A timeless cultural ode honoring classic Bengali bridal beauty. Handcrafted chandan sandalwood forehead artwork, bold winged eyes, radiant blush, and vibrant bridal sindoor.',
     skinFinish: 'Traditional Illuminated Dewy Finish',
     jewellery: '22K Heritage Gold Sita Haar & Mukut Tikka',
@@ -256,55 +275,162 @@ export function initPortfolio() {
     });
   });
 
-  // --- Explicit Card Hover & Touch Event Listeners (No Random Autoplay) ---
+  // --- Portfolio Card Media Skeleton & Loading Handler ---
   cards.forEach(card => {
-    const video = card.querySelector('.card-video');
+    const media = card.querySelector('.card-media');
+    if (!media) return;
 
-    function startCardVideo() {
-      if (!video) return;
-      try {
-        video.currentTime = 0;
-        video.muted = true;
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            requestAnimationFrame(() => {
-              card.classList.add('is-playing');
-            });
-          }).catch(() => {
-            card.classList.add('is-playing');
-          });
-        } else {
-          card.classList.add('is-playing');
+    // Ensure skeleton exists
+    let skeleton = media.querySelector('.card-skeleton');
+    if (!skeleton) {
+      skeleton = document.createElement('div');
+      skeleton.className = 'card-skeleton';
+      skeleton.setAttribute('aria-hidden', 'true');
+      skeleton.innerHTML = `
+        <div class="skeleton-pill"></div>
+        <div class="skeleton-center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+      `;
+      media.prepend(skeleton);
+    }
+
+    const img = media.querySelector('.card-img');
+    if (img) {
+      if (img.complete && img.naturalHeight !== 0) {
+        media.classList.add('is-loaded');
+      } else {
+        img.addEventListener('load', () => {
+          media.classList.add('is-loaded');
+        }, { once: true });
+        img.addEventListener('error', () => {
+          media.classList.add('is-loaded');
+        }, { once: true });
+      }
+    }
+  });
+
+  const isHighEnd = isHighEndDevice();
+
+  // --- Lazy Dual-Layer Adaptive Media Setup (Hydrates only on scroll proximity for 95%+ PageSpeed) ---
+  const mediaObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const projectId = card.getAttribute('data-project-id');
+        const data = portfolioData.find(item => item.id === projectId);
+        const media = card.querySelector('.card-media');
+        if (media && data) {
+          // 1. Lazy instantiate GIF element
+          let gif = media.querySelector('.card-gif');
+          if (!gif) {
+            gif = document.createElement('img');
+            gif.className = 'card-gif';
+            gif.alt = `${data.title} motion`;
+            gif.loading = 'lazy';
+            gif.decoding = 'async';
+            gif.src = data.gif;
+            media.appendChild(gif);
+          }
+
+          // 2. Lazy instantiate Video element
+          let video = media.querySelector('.card-video');
+          if (!video) {
+            video = document.createElement('video');
+            video.className = 'card-video';
+            video.muted = true;
+            video.loop = true;
+            video.playsInline = true;
+            video.preload = 'none';
+            video.src = data.video;
+            media.appendChild(video);
+          }
         }
-      } catch (e) {
-        card.classList.add('is-playing');
+        observer.unobserve(card);
+      }
+    });
+  }, { rootMargin: '300px 0px' });
+
+  cards.forEach(card => mediaObserver.observe(card));
+
+  // --- Efficient Card Hover & Touch Event Listeners (Shows GIF instantly until Video is ready) ---
+  cards.forEach(card => {
+    let isHovered = false;
+
+    function startCardAnimation() {
+      isHovered = true;
+      const video = card.querySelector('.card-video');
+
+      // 1. Instantly start playing state (shows the GIF immediately)
+      card.classList.add('is-playing');
+
+      // 2. If video element is present, initiate playback and promote to video when ready
+      if (video) {
+        if (video.readyState >= 3) {
+          card.classList.add('video-ready');
+          try {
+            video.currentTime = 0;
+            video.muted = true;
+            video.volume = 0;
+            const playPromise = video.play();
+            if (playPromise !== undefined) playPromise.catch(() => {});
+          } catch (e) {}
+        } else {
+          const onCanPlay = () => {
+            if (isHovered) {
+              card.classList.add('video-ready');
+            }
+          };
+
+          video.addEventListener('playing', onCanPlay, { once: true });
+          video.addEventListener('canplay', onCanPlay, { once: true });
+
+          try {
+            video.currentTime = 0;
+            video.muted = true;
+            video.volume = 0;
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                if (isHovered) card.classList.add('video-ready');
+              }).catch(() => {});
+            }
+          } catch (e) {}
+        }
       }
     }
 
-    function stopCardVideo() {
-      card.classList.remove('is-playing');
+    function stopCardAnimation() {
+      isHovered = false;
+      card.classList.remove('is-playing', 'video-ready');
+
+      const video = card.querySelector('.card-video');
       if (video) {
         video.pause();
         try { video.currentTime = 0; } catch (e) {}
       }
     }
 
-    // Hover to play / leave to stop
-    card.addEventListener('mouseenter', startCardVideo);
-    card.addEventListener('mouseleave', stopCardVideo);
+    card.addEventListener('mouseenter', startCardAnimation);
+    card.addEventListener('mouseleave', stopCardAnimation);
 
     // Touch support for mobile devices
     card.addEventListener('touchstart', () => {
       // Pause other cards if any
       cards.forEach(c => {
         if (c !== card) {
-          c.classList.remove('is-playing');
+          c.classList.remove('is-playing', 'video-ready');
           const v = c.querySelector('.card-video');
           if (v) { v.pause(); v.currentTime = 0; }
         }
       });
-      startCardVideo();
+      if (card.classList.contains('is-playing')) {
+        stopCardAnimation();
+      } else {
+        startCardAnimation();
+      }
     }, { passive: true });
 
     card.addEventListener('click', () => {
@@ -321,60 +447,83 @@ export function initPortfolio() {
     });
   });
 
-  // --- Case Study Modal: Hover/Touch Left Image to Play, Hover/Touch Right Side to Stop ---
+  // --- Case Study Modal: Instant GIF preview with video promotion ---
   const modalMedia = document.getElementById('modal-case-media');
   const modalBody = document.querySelector('.case-study-body');
   const modalImage = document.getElementById('modal-case-image');
   const modalVideo = document.getElementById('modal-case-video');
+  const modalGif = document.getElementById('modal-case-gif');
   const modalMotionText = document.querySelector('.modal-motion-text');
 
-  function startModalVideo() {
-    if (!modalVideo || !modalMedia) return;
+  function startModalAnimation() {
+    if (!modalMedia) return;
     if (modalMotionText) modalMotionText.textContent = 'Live Motion';
-    try {
-      modalVideo.currentTime = 0;
-      modalVideo.muted = true;
-      const playPromise = modalVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          requestAnimationFrame(() => {
-            modalMedia.classList.add('is-playing');
-          });
-        }).catch(() => {
-          modalMedia.classList.add('is-playing');
-        });
+
+    // Show GIF immediately
+    modalMedia.classList.add('is-playing');
+
+    if (modalVideo) {
+      if (modalVideo.readyState >= 3) {
+        modalMedia.classList.add('video-ready');
+        try {
+          modalVideo.currentTime = 0;
+          modalVideo.muted = true;
+          modalVideo.volume = 0;
+          const p = modalVideo.play();
+          if (p !== undefined) p.catch(() => {});
+        } catch (e) {}
       } else {
-        modalMedia.classList.add('is-playing');
+        const onModalCanPlay = () => {
+          if (modalMedia.classList.contains('is-playing')) {
+            modalMedia.classList.add('video-ready');
+          }
+        };
+        modalVideo.addEventListener('playing', onModalCanPlay, { once: true });
+        modalVideo.addEventListener('canplay', onModalCanPlay, { once: true });
+
+        try {
+          modalVideo.currentTime = 0;
+          modalVideo.muted = true;
+          modalVideo.volume = 0;
+          const p = modalVideo.play();
+          if (p !== undefined) {
+            p.then(() => {
+              if (modalMedia.classList.contains('is-playing')) {
+                modalMedia.classList.add('video-ready');
+              }
+            }).catch(() => {});
+          }
+        } catch (e) {}
       }
-    } catch (e) {
-      modalMedia.classList.add('is-playing');
     }
   }
 
-  function stopModalVideo() {
-    if (!modalVideo || !modalMedia) return;
-    modalMedia.classList.remove('is-playing');
+  function stopModalAnimation() {
+    if (!modalMedia) return;
+    modalMedia.classList.remove('is-playing', 'video-ready');
     if (modalMotionText) modalMotionText.textContent = 'Hover / Tap for Motion';
-    modalVideo.pause();
-    try { modalVideo.currentTime = 0; } catch (e) {}
+    if (modalVideo) {
+      modalVideo.pause();
+      try { modalVideo.currentTime = 0; } catch (e) {}
+    }
   }
 
-  // Hover or touch left image -> start video from beginning
-  modalMedia?.addEventListener('mouseenter', startModalVideo);
-  modalMedia?.addEventListener('mouseleave', stopModalVideo);
+  // Hover or touch left image -> start motion
+  modalMedia?.addEventListener('mouseenter', startModalAnimation);
+  modalMedia?.addEventListener('mouseleave', stopModalAnimation);
   modalMedia?.addEventListener('click', (e) => {
     e.stopPropagation();
     if (modalMedia.classList.contains('is-playing')) {
-      stopModalVideo();
+      stopModalAnimation();
     } else {
-      startModalVideo();
+      startModalAnimation();
     }
   });
 
-  // Touch or hover right side -> stop video
-  modalBody?.addEventListener('mouseenter', stopModalVideo);
-  modalBody?.addEventListener('click', stopModalVideo);
-  modalBody?.addEventListener('touchstart', stopModalVideo, { passive: true });
+  // Touch or hover right side -> stop motion
+  modalBody?.addEventListener('mouseenter', stopModalAnimation);
+  modalBody?.addEventListener('click', stopModalAnimation);
+  modalBody?.addEventListener('touchstart', stopModalAnimation, { passive: true });
 
   function openCaseStudy(projectId, triggeringEl) {
     const data = portfolioData.find(item => item.id === projectId) || portfolioData[0];
@@ -389,13 +538,26 @@ export function initPortfolio() {
     const modalProducts = document.getElementById('modal-case-products');
     const modalWaBtn = document.getElementById('modal-case-wa-btn');
 
-    if (modalImage) modalImage.src = data.image;
+    if (modalImage) {
+      modalImage.src = `${data.imageBase}-md.webp`;
+      modalImage.srcset = `${data.imageBase}-sm.webp 360w, ${data.imageBase}-md.webp 720w, ${data.imageBase}-lg.webp 1200w`;
+      modalImage.alt = data.title;
+    }
+
+    if (modalGif) {
+      modalGif.style.display = 'block';
+      modalGif.src = data.gif;
+    }
+
     if (modalVideo) {
-      modalVideo.src = data.video || '';
+      modalVideo.style.display = 'block';
+      modalVideo.src = data.video;
+      modalVideo.muted = true;
+      modalVideo.volume = 0;
       modalVideo.load();
     }
 
-    stopModalVideo();
+    stopModalAnimation();
 
     if (modalCategory) modalCategory.textContent = data.categoryLabel;
     if (modalTitle) modalTitle.textContent = data.title;
@@ -430,7 +592,7 @@ export function initPortfolio() {
   }
 
   function closeCaseStudy() {
-    stopModalVideo();
+    stopModalAnimation();
 
     if (modal && modal.classList.contains('is-active')) {
       gsap.to('.case-study-modal', {
@@ -448,7 +610,11 @@ export function initPortfolio() {
     }
   }
 
-  modalCloseBtn?.addEventListener('click', closeCaseStudy);
+  modalCloseBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeCaseStudy();
+  });
   modal?.addEventListener('click', (e) => {
     if (e.target === modal) closeCaseStudy();
   });
@@ -464,14 +630,10 @@ export function initPortfolio() {
   const reelCaptTitle = document.getElementById('reel-caption-title');
   const reelCaptCat   = document.getElementById('reel-caption-cat');
   const reelCloseBtn  = document.getElementById('reel-close-btn');
-  const reelMuteBtn   = document.getElementById('reel-mute-btn');
-  const reelIconOn    = document.getElementById('reel-icon-unmuted');
-  const reelIconOff   = document.getElementById('reel-icon-muted');
   const reelPrevBtn   = document.getElementById('reel-tap-prev');
   const reelNextBtn   = document.getElementById('reel-tap-next');
 
   let reelIndex        = 0;
-  let reelMuted        = true;
   let reelRafId        = null;
   let reelSegFills     = [];
   let reelActive       = false;
@@ -537,8 +699,9 @@ export function initPortfolio() {
     reelVideo.classList.add('reel-fade-out');
 
     setTimeout(() => {
-      reelVideo.src = look.video;
-      reelVideo.muted = reelMuted;
+      reelVideo.src = videoBlobCache.get(look.video) || look.video;
+      reelVideo.muted = true;
+      reelVideo.volume = 0;
       reelVideo.load();
 
       // Update caption
@@ -589,18 +752,9 @@ export function initPortfolio() {
     }
   }
 
-  // Mute toggle
-  function toggleReelMute() {
-    reelMuted = !reelMuted;
-    if (reelVideo) reelVideo.muted = reelMuted;
-    if (reelIconOn)  reelIconOn.style.display  = reelMuted ? 'none' : '';
-    if (reelIconOff) reelIconOff.style.display = reelMuted ? ''     : 'none';
-  }
-
   // Wire events
   reelVideo?.addEventListener('ended', onReelVideoEnded);
   reelCloseBtn?.addEventListener('click', closeReel);
-  reelMuteBtn?.addEventListener('click', (e) => { e.stopPropagation(); toggleReelMute(); });
   reelPrevBtn?.addEventListener('click', () => loadReel(reelIndex - 1));
   reelNextBtn?.addEventListener('click', () => {
     if (reelIndex < portfolioData.length - 1) loadReel(reelIndex + 1);
@@ -618,7 +772,6 @@ export function initPortfolio() {
     if (e.key === 'Escape')      closeReel();
     if (e.key === 'ArrowRight')  reelNextBtn?.click();
     if (e.key === 'ArrowLeft')   reelPrevBtn?.click();
-    if (e.key === 'm' || e.key === 'M') toggleReelMute();
   });
 
   // Also handle Escape for case-study modal
@@ -627,3 +780,24 @@ export function initPortfolio() {
   });
 }
 
+// Global In-Memory Video Blob Cache for Zero-Latency Playback
+export const videoBlobCache = new Map();
+
+/**
+ * Fetches and converts a video URL into a local in-memory Blob URL
+ */
+export async function preloadVideoBlob(url) {
+  if (!url) return url;
+  if (videoBlobCache.has(url)) return videoBlobCache.get(url);
+
+  try {
+    const res = await fetch(url, { cache: 'force-cache' });
+    if (!res.ok) return url;
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    videoBlobCache.set(url, blobUrl);
+    return blobUrl;
+  } catch (err) {
+    return url;
+  }
+}

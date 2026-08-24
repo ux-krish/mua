@@ -87,4 +87,12 @@ export function initScrollReveals() {
       }
     });
   });
+
+  // Artist Portrait Mobile Tap Toggle
+  const aboutCard = document.querySelector('.about-image-card');
+  if (aboutCard) {
+    aboutCard.addEventListener('click', () => {
+      aboutCard.classList.toggle('is-hovered');
+    });
+  }
 }

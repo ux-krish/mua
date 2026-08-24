@@ -37,7 +37,7 @@ export function initCursor() {
     dotY(e.clientY);
     followerX(e.clientX);
     followerY(e.clientY);
-  });
+  }, { passive: true });
 
   document.documentElement.addEventListener('mouseleave', () => {
     gsap.to([dot, follower], { opacity: 0, duration: 0.3 });

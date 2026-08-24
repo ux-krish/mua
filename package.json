@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "homepage": "https://ux-krish.github.io/mua/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "vite build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "gsap": "^3.12.5"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "sass": "^1.85.1",
     "sharp": "^0.35.3",
     "vite": "^6.2.0"

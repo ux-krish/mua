@@ -74,31 +74,33 @@ export function initCursor() {
     }
   });
 
-  // Magnetic CTAs
-  const magneticButtons = document.querySelectorAll('.btn-magnetic');
-  magneticButtons.forEach(btn => {
-    const textEl = btn.querySelector('.btn-text') || btn;
+  // Magnetic CTAs (only for fine pointer devices like mouse, not touch)
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const magneticButtons = document.querySelectorAll('.btn-magnetic');
+    magneticButtons.forEach(btn => {
+      const textEl = btn.querySelector('.btn-text') || btn;
 
-    btn.addEventListener('mousemove', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const relX = e.clientX - rect.left - rect.width / 2;
-      const relY = e.clientY - rect.top - rect.height / 2;
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const relX = e.clientX - rect.left - rect.width / 2;
+        const relY = e.clientY - rect.top - rect.height / 2;
 
-      gsap.to(textEl, {
-        x: relX * 0.35,
-        y: relY * 0.35,
-        duration: 0.3,
-        ease: 'power2.out'
+        gsap.to(textEl, {
+          x: relX * 0.35,
+          y: relY * 0.35,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(textEl, {
+          x: 0,
+          y: 0,
+          duration: 0.6,
+          ease: 'elastic.out(1, 0.4)'
+        });
       });
     });
-
-    btn.addEventListener('mouseleave', () => {
-      gsap.to(textEl, {
-        x: 0,
-        y: 0,
-        duration: 0.6,
-        ease: 'elastic.out(1, 0.4)'
-      });
-    });
-  });
+  }
 }

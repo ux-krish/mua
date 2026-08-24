@@ -3,6 +3,9 @@ import { Flip } from 'gsap/Flip';
 
 gsap.registerPlugin(Flip);
 
+const base = import.meta.env.BASE_URL || '/';
+const asset = (p) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+
 // Comprehensive Portfolio Case Study Data — Curated Haute Couture Looks
 export const portfolioData = [
   {
@@ -10,8 +13,8 @@ export const portfolioData = [
     title: 'The Royal Kundan & Polki Bride',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: '/assets/images/48495647-woman-9419481.jpg',
-    video: '/assets/videos/show_a_smile_1080p_202608240523.mp4',
+    image: asset('/assets/images/48495647-woman-9419481.jpg'),
+    video: asset('/assets/videos/show_a_smile_1080p_202608240523.mp4'),
     story: 'Designed for a regal heritage palace wedding in Udaipur. Features an incandescent dewy base, smokey almond-eye contour, and bespoke crimson lip framing an authentic Sabyasachi zardozi drape.',
     skinFinish: 'Luminous 24K Polki HD Glow',
     jewellery: 'Heritage Uncut Polki Matha Patti & Choker',
@@ -23,8 +26,8 @@ export const portfolioData = [
     title: 'Antique Champagne Gold Maharani',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: '/assets/images/48495647-bride-9414692_1920.jpg',
-    video: '/assets/videos/smile_her_1080p_202608240531.mp4',
+    image: asset('/assets/images/48495647-bride-9414692_1920.jpg'),
+    video: asset('/assets/videos/smile_her_1080p_202608240531.mp4'),
     story: 'Crafted for a majestic evening varmala ceremony in Jaipur. Warm molten-gold eyeshadow, defined graphic wing, and sculpted velvet nude-rose lips complementing antique gold zardozi.',
     skinFinish: 'Micro-Dew Velvet Satin Base',
     jewellery: 'Grand Kundan Waterfall Choker & Borla Tikka',
@@ -36,8 +39,8 @@ export const portfolioData = [
     title: 'Pastel Diamond & Rose Quartz Glam',
     category: 'party',
     categoryLabel: 'Sangeet & Reception',
-    image: '/assets/images/48495647-woman-9417377.jpg',
-    video: '/assets/videos/smile_her_202608240536.mp4',
+    image: asset('/assets/images/48495647-woman-9417377.jpg'),
+    video: asset('/assets/videos/smile_her_202608240536.mp4'),
     story: 'A modern fairytale look designed for an extravagant Mumbai reception. Soft frosted rose eyelids with delicate silver micro-shimmer, glowing glass skin, and glossy terracotta blush.',
     skinFinish: 'Glass Skin Radiance with Rose Quartz Illuminator',
     jewellery: 'Tiered Rose-Cut Diamond Collar & Chandelier Earrings',
@@ -49,8 +52,8 @@ export const portfolioData = [
     title: 'Velvet Wine & Emerald Sangeet Soirée',
     category: 'party',
     categoryLabel: 'Sangeet & Reception',
-    image: '/assets/images/48495647-bride-9417324_1920.jpg',
-    video: '/assets/videos/smile_her_1080p_202608240532.mp4',
+    image: asset('/assets/images/48495647-bride-9417324_1920.jpg'),
+    video: asset('/assets/videos/smile_her_1080p_202608240532.mp4'),
     story: 'Created for a high-energy celebrity Sangeet night. Features multi-dimensional copper-bronze foil lids, smudged kohl waterline, and a deep berry velvet matte lip paired with emerald polki.',
     skinFinish: 'Sweat-Resistant 16-Hour HD Matte Finish',
     jewellery: 'Emerald Drop Polki Choker & Maang Tikka',
@@ -62,8 +65,8 @@ export const portfolioData = [
     title: 'Sculpted Sunset Bronze & Rose Gold',
     category: 'celebrity',
     categoryLabel: 'Celebrity & Red Carpet',
-    image: '/assets/images/48495647-woman-9417380_1920.jpg',
-    video: '/assets/videos/smile_her_1080p_202608240529.mp4',
+    image: asset('/assets/images/48495647-woman-9417380_1920.jpg'),
+    video: asset('/assets/videos/smile_her_1080p_202608240529.mp4'),
     story: 'Featured on the red carpet and bridal fashion week. Bronzed cheekbone sculpting, warm gold halo eyes, and crisp lip architecture with high-shine peach-nude gloss.',
     skinFinish: 'HD 4K Camera-Ready Radiance',
     jewellery: 'Rose Gold Temple Choker & Filigree Chaandbalis',
@@ -75,8 +78,8 @@ export const portfolioData = [
     title: 'South Indian Temple Gold & Silk Heritage',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: '/assets/images/iqraagrapix-wedding-9589653_1920.jpg',
-    video: '/assets/videos/smile_her_1080p_202608240530.mp4',
+    image: asset('/assets/images/iqraagrapix-wedding-9589653_1920.jpg'),
+    video: asset('/assets/videos/smile_her_1080p_202608240530.mp4'),
     story: 'A magnificent heritage South Indian bridal look in ivory and gold Kanjivaram silk, layered 22K antique temple jewellery, and sculpted winged eyes with radiant coral lips.',
     skinFinish: 'Traditional Illuminated Dewy Finish',
     jewellery: '22K Antique Temple Gold Choker, Kasu Mala & Maang Tikka',
@@ -88,8 +91,8 @@ export const portfolioData = [
     title: 'Crimson Navratan Zardozi Splendor',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: '/assets/images/48495647-bride-9414715_1920.jpg',
-    video: '/assets/videos/smile_her_202608240537.mp4',
+    image: asset('/assets/images/48495647-bride-9414715_1920.jpg'),
+    video: asset('/assets/videos/smile_her_202608240537.mp4'),
     story: 'A showstopping North Indian bridal look featuring hand-cut Navratan gemstones, graphic winged liner with double cut crease, and rich crimson lip contour designed for 4K video.',
     skinFinish: 'Ultra-Flawless Camera-Proof HD Base',
     jewellery: 'Multicolor Gemstone Navratan Polki Choker & Oversized Nath',
@@ -101,8 +104,8 @@ export const portfolioData = [
     title: 'Silver Starlight Cut-Crease Editorial',
     category: 'editorial',
     categoryLabel: 'Fashion Editorial',
-    image: '/assets/images/magicalbrushes-indian-woman-7137926_1920.jpg',
-    video: '/assets/videos/smile_her_202608240535.mp4',
+    image: asset('/assets/images/magicalbrushes-indian-woman-7137926_1920.jpg'),
+    video: asset('/assets/videos/smile_her_202608240535.mp4'),
     story: 'An avant-garde high-fashion editorial look featuring high-impact silver foil pigments, warm sunset transition shading, glowing strobed cheekbones, and hot pink velvet pout.',
     skinFinish: 'Editorial Strobe & High-Gloss Finish',
     jewellery: 'Delicate Pearl Choker & Kundan Nath Ring',
@@ -114,8 +117,8 @@ export const portfolioData = [
     title: 'Traditional Bengali Chandan Heritage',
     category: 'bridal',
     categoryLabel: 'Royal Bridal',
-    image: '/assets/images/magicalbrushes-woman-6555890_1920.jpg',
-    video: '/assets/videos/smile_her_202608240547.mp4',
+    image: asset('/assets/images/magicalbrushes-woman-6555890_1920.jpg'),
+    video: asset('/assets/videos/smile_her_202608240547.mp4'),
     story: 'A timeless cultural ode honoring classic Bengali bridal beauty. Handcrafted chandan sandalwood forehead artwork, bold winged eyes, radiant blush, and vibrant bridal sindoor.',
     skinFinish: 'Traditional Illuminated Dewy Finish',
     jewellery: '22K Heritage Gold Sita Haar & Mukut Tikka',
@@ -374,7 +377,6 @@ export function initPortfolio() {
   modalBody?.addEventListener('touchstart', stopModalVideo, { passive: true });
 
   function openCaseStudy(projectId, triggeringEl) {
-    stopAmbientVideo();
     const data = portfolioData.find(item => item.id === projectId) || portfolioData[0];
     lastFocusedElement = triggeringEl;
 
@@ -441,7 +443,6 @@ export function initPortfolio() {
           modal.classList.remove('is-active');
           document.body.style.overflow = '';
           lastFocusedElement?.focus();
-          restartAmbientDirector();
         }
       });
     }

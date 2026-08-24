@@ -1,0 +1,11 @@
+@use 'sass:math';
+
+// Convert pixels to VW based on standard 1920px reference viewport
+@function vw($px, $base: 1920) {
+  @return (math.div($px, $base) * 100) * 1vw;
+}
+
+// Convert pixels to rem
+@function rem($px) {
+  @return math.div($px, 16) * 1rem;
+}

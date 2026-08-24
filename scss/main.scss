@@ -1,0 +1,30 @@
+// Luxe by Aanya — Main SCSS Entry
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+@use 'abstracts/functions';
+
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/global';
+
+@use 'components/buttons';
+@use 'components/navigation';
+@use 'components/cursor';
+@use 'components/preloader';
+@use 'components/forms';
+@use 'components/marquee';
+@use 'components/modal';
+@use 'components/gallery';
+@use 'components/drawer';
+
+@use 'sections/hero';
+@use 'sections/services';
+@use 'sections/about';
+@use 'sections/experience';
+@use 'sections/why-choose';
+@use 'sections/testimonials';
+@use 'sections/booking';
+@use 'sections/footer';
+
+// Mobile responsive overrides (loaded last to ensure specificity)
+@use 'base/mobile';

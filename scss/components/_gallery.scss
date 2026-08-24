@@ -1,0 +1,374 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Portfolio Category Filter Tabs
+.portfolio-filters-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5vw;
+  width: 100%;
+
+  @include breakpoint(mobile) {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0.5rem 2vw 1rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .filter-list {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5vw;
+    background: rgba($espresso, 0.75);
+    padding: 0.4vw;
+    border-radius: 999px;
+    border: 1px solid rgba($charcoal, 0.9);
+    backdrop-filter: blur(12px);
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+    .filter-btn {
+      font-family: $font-body;
+      font-size: clamp(0.7rem, 0.75vw, 0.875rem);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: $ink-secondary;
+      padding: 0.6vw 1.6vw;
+      border-radius: 999px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      @include focus-ring;
+
+      &:hover {
+        color: $champagne;
+      }
+
+      &.is-active {
+        background: linear-gradient(135deg, $royal-crimson 0%, $crimson-deep 100%);
+        color: #FFFFFF;
+        box-shadow: 0 3px 14px rgba(199, 36, 46, 0.45);
+        border: 1px solid rgba($champagne, 0.55);
+      }
+    }
+}
+
+// Ultra-Luxury Editorial Lookbook Grid System
+.portfolio-grid-wrap {
+  position: relative;
+  width: 100%;
+  padding: 1vw 0 2.5vw;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.2rem, 1.8vw, 2.5rem);
+  width: 100%;
+  // Smooth grid reflow during filter transitions
+  transition: gap 0.3s ease;
+
+  @include breakpoint(laptop) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5vw;
+  }
+
+  @include breakpoint(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @include breakpoint(mobile) {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  // Hidden card state — collapsed out of grid flow
+  .portfolio-card.is-hidden {
+    display: none;
+  }
+
+  // Filtering state — prevent interactions during animation
+  .portfolio-card.is-filtering {
+    pointer-events: none;
+  }
+
+  // Portfolio Slide Card with fluid VW scaling
+  .portfolio-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4.15;
+    border-radius: 4px;
+    overflow: hidden;
+    background: $obsidian;
+    border: 1px solid rgba($champagne, 0.25);
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    transform: translateZ(0);
+    will-change: transform, border-color, box-shadow;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.5s ease;
+    @include focus-ring;
+
+    .card-media {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: $obsidian;
+      transform: translateZ(0);
+
+      .card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1);
+        will-change: transform, opacity;
+        transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+      }
+
+      .card-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(1);
+        will-change: transform, opacity;
+        transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .card-motion-pill {
+        position: absolute;
+        top: clamp(10px, 0.9vw, 16px);
+        right: clamp(10px, 0.9vw, 16px);
+        z-index: 4;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        background: rgba($espresso, 0.82);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba($champagne, 0.35);
+        border-radius: 999px;
+        font-family: $font-body;
+        font-size: clamp(0.55rem, 0.6vw, 0.68rem);
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: $champagne;
+        pointer-events: none;
+        transition: all 0.35s ease;
+
+        .motion-pulse-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: $kundan-gold;
+          box-shadow: 0 0 6px rgba($kundan-gold, 0.8);
+          animation: pulse-dot 2s infinite ease-in-out;
+        }
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 30%, rgba($obsidian, 0.35) 65%, rgba($obsidian, 0.95) 100%);
+        opacity: 0.75;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+      }
+    }
+
+    .card-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: clamp(1rem, 1.2vw, 1.8rem);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25vw;
+      transform: translateY(4px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+      .card-category {
+        font-size: clamp(0.6rem, 0.65vw, 0.75rem);
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: $champagne;
+      }
+
+      .card-title {
+        font-family: $font-display;
+        font-size: clamp(1.05rem, 1.25vw, 1.6rem);
+        color: $ink-primary;
+        line-height: 1.2;
+        font-weight: 500;
+      }
+
+      .card-arrow {
+        position: absolute;
+        right: 1.2vw;
+        bottom: 1.2vw;
+        width: clamp(28px, 2vw, 38px);
+        height: clamp(28px, 2vw, 38px);
+        border-radius: 50%;
+        border: 1px solid rgba($champagne, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $champagne;
+        font-size: clamp(0.75rem, 0.9vw, 1.1rem);
+        opacity: 0;
+        transform: scale(0.7);
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+    }
+
+    &:hover, &.is-playing {
+      transform: translateY(-8px);
+      border-color: rgba($champagne, 0.85);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 30px rgba(199, 36, 46, 0.35);
+
+      .card-media {
+        .card-img {
+          opacity: 0;
+          transform: scale(1.06);
+          filter: brightness(1.04);
+        }
+
+        .card-video {
+          opacity: 1;
+          transform: scale(1.06);
+        }
+
+        .card-motion-pill {
+          background: rgba($espresso, 0.95);
+          border-color: rgba($royal-crimson, 0.85);
+          box-shadow: 0 0 12px rgba(199, 36, 46, 0.5);
+
+          .motion-pulse-dot {
+            background: $royal-crimson;
+            box-shadow: 0 0 8px rgba(199, 36, 46, 1);
+            animation: pulse-dot 0.8s infinite ease-in-out;
+          }
+        }
+
+        &::after {
+          opacity: 0.9;
+        }
+      }
+
+      .card-info {
+        transform: translateY(0);
+
+        .card-arrow {
+          opacity: 1;
+          transform: scale(1);
+          border-color: $champagne;
+          color: $champagne;
+          background: rgba($royal-crimson, 0.3);
+          box-shadow: 0 0 15px rgba($champagne, 0.5);
+        }
+      }
+    }
+
+    &.is-hidden {
+      display: none;
+    }
+  }
+
+  // Empty State fallback
+  .portfolio-empty-state {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 4vw 2vw;
+    text-align: center;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: rgba($espresso, 0.4);
+    border: 1px dashed $charcoal;
+    border-radius: 4px;
+
+    &.is-visible {
+      display: flex;
+    }
+
+    .empty-title {
+      font-size: 1.5rem;
+      color: $champagne;
+    }
+
+    .empty-desc {
+      font-size: 0.95rem;
+      color: $ink-secondary;
+    }
+  }
+}
+
+// Lookbook Grid Footer Status Bar
+.portfolio-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2.5vw;
+  padding: 1.2vw 2vw;
+  background: rgba($espresso, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba($charcoal, 0.8);
+  border-radius: 999px;
+
+  @include breakpoint(mobile) {
+    flex-direction: column;
+    gap: 0.75rem;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .portfolio-count-text {
+    font-family: $font-body;
+    font-size: clamp(0.75rem, 0.8vw, 0.95rem);
+    font-weight: 500;
+    color: $ink-secondary;
+    letter-spacing: 0.05em;
+
+    strong {
+      color: $champagne;
+      font-weight: 600;
+    }
+  }
+
+  .portfolio-live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: $font-body;
+    font-size: clamp(0.68rem, 0.72vw, 0.85rem);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $champagne;
+
+    .motion-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: $royal-crimson;
+      box-shadow: 0 0 8px $royal-crimson;
+      animation: pulse-dot 1.2s infinite ease-in-out;
+    }
+  }
+}

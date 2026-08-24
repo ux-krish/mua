@@ -1,0 +1,475 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(#040303, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 99990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+  padding: 2rem;
+
+  @include breakpoint(mobile) {
+    padding: 0;
+  }
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+// Case Study FLIP Modal Container
+.case-study-modal {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+  background: $espresso;
+  border: 1px solid rgba($charcoal, 0.9);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 2;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint(mobile) {
+    max-height: 100vh;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+  }
+
+  .modal-close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba($obsidian, 0.8);
+    border: 1px solid rgba($champagne, 0.4);
+    color: $champagne;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    @include focus-ring;
+
+    &:hover {
+      background: linear-gradient(135deg, $royal-crimson 0%, $crimson-deep 100%);
+      color: #FFFFFF;
+      border-color: $champagne;
+      transform: scale(1.1) rotate(90deg);
+      box-shadow: 0 0 20px rgba(199, 36, 46, 0.7);
+    }
+  }
+
+  .case-study-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    min-height: 550px;
+
+    @include breakpoint(mobile) {
+      grid-template-columns: 1fr;
+    }
+    @include breakpoint(tablet) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .case-study-media {
+    position: relative;
+    background: $obsidian;
+    overflow: hidden;
+    min-height: 380px;
+    cursor: pointer;
+
+    .modal-case-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-case-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.02);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-motion-badge {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba($espresso, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba($champagne, 0.35);
+      border-radius: 999px;
+      font-family: $font-body;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: $champagne;
+      pointer-events: none;
+      transition: all 0.35s ease;
+
+      .motion-pulse-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: $kundan-gold;
+        box-shadow: 0 0 6px rgba($kundan-gold, 0.8);
+        animation: pulse-dot 2s infinite ease-in-out;
+      }
+    }
+
+    &:hover, &.is-playing {
+      .modal-case-img {
+        opacity: 0;
+        transform: scale(1.06);
+      }
+
+      .modal-case-video {
+        opacity: 1;
+        transform: scale(1.06);
+      }
+
+      .modal-motion-badge {
+        background: rgba($espresso, 0.95);
+        border-color: rgba($royal-crimson, 0.85);
+        box-shadow: 0 0 15px rgba(199, 36, 46, 0.5);
+
+        .motion-pulse-dot {
+          background: $royal-crimson;
+          box-shadow: 0 0 10px rgba(199, 36, 46, 1);
+          animation: pulse-dot 0.8s infinite ease-in-out;
+        }
+      }
+    }
+  }
+
+  .case-study-body {
+    padding: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+
+    .case-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: $champagne;
+    }
+
+    .case-title {
+      font-size: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
+      line-height: 1.2;
+    }
+
+    .case-story {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: $ink-secondary;
+    }
+
+    .case-details-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba($charcoal, 0.8);
+
+      .case-detail-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .detail-label {
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: $champagne;
+        }
+
+        .detail-value {
+          font-size: 0.875rem;
+          color: $ink-primary;
+        }
+      }
+    }
+
+    .case-cta-wrap {
+      margin-top: 1rem;
+    }
+  }
+}
+
+// ==================================================
+// Reel Viewer — WhatsApp Status Style
+// ==================================================
+
+.reel-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.is-active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.reel-modal-shell {
+  position: relative;
+  width: min(420px, 96vw);
+  height: min(748px, 94vh);
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba($champagne, 0.15);
+}
+
+// Full-cover video
+.reel-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #111;
+  transition: opacity 0.25s ease;
+
+  &.reel-fade-out {
+    opacity: 0;
+  }
+}
+
+// Progress bar rail at the top
+.reel-progress-rail {
+  position: absolute;
+  top: 14px;
+  left: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+  .reel-seg {
+    flex: 1;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 99px;
+    overflow: hidden;
+    cursor: pointer;
+
+    .reel-seg-fill {
+      width: 0%;
+      height: 100%;
+      background: #FFF;
+      border-radius: 99px;
+      transform-origin: left center;
+    }
+
+    &.is-done .reel-seg-fill {
+      width: 100%;
+    }
+  }
+}
+
+// Author pill (top left, below progress)
+.reel-author-pill {
+  position: absolute;
+  top: 36px;
+  left: 14px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 6px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+  border: 1px solid rgba($champagne, 0.22);
+}
+
+.reel-author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $royal-crimson, $kundan-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-display;
+  font-size: 0.85rem;
+  color: #FFF;
+  font-weight: 600;
+  border: 1.5px solid rgba($champagne, 0.5);
+  flex-shrink: 0;
+}
+
+.reel-author-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  .reel-author-name {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #FFF;
+    letter-spacing: 0.04em;
+  }
+
+  .reel-author-sub {
+    font-size: 0.62rem;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+// Close button
+.reel-close-btn {
+  position: absolute;
+  top: 30px;
+  right: 14px;
+  z-index: 11;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: rgba($royal-crimson, 0.7);
+    transform: scale(1.08);
+  }
+}
+
+// Mute toggle
+.reel-mute-btn {
+  position: absolute;
+  bottom: 130px;
+  right: 14px;
+  z-index: 11;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+// Caption / look label at the bottom
+.reel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 3rem 1.4rem 1.4rem;
+  background: linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 55%, transparent 100%);
+
+  .reel-caption-number {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 4px;
+  }
+
+  .reel-caption-title {
+    font-family: $font-display;
+    font-size: clamp(1.15rem, 4vw, 1.5rem);
+    color: #FFF;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .reel-caption-cat {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $champagne;
+  }
+}
+
+// Left / right tap zones (invisible but full-height)
+.reel-tap-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35%;
+  z-index: 9;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  &.reel-tap-prev { left: 0; }
+  &.reel-tap-next { right: 0; }
+}

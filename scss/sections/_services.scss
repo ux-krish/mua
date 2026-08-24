@@ -1,0 +1,128 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.services-section {
+  background-color: $obsidian;
+  position: relative;
+  border-top: 1px solid rgba($charcoal, 0.6);
+  border-bottom: 1px solid rgba($charcoal, 0.6);
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25vw;
+    margin-top: 2vw;
+
+    @include breakpoint(laptop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include breakpoint(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @include breakpoint(mobile) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .service-card {
+    position: relative;
+    background: rgba($espresso, 0.5);
+    border: 1px solid rgba($charcoal, 0.9);
+    padding: 2vw 1.2vw;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1vw;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    @include focus-ring;
+
+    @include breakpoint(mobile) {
+      padding: 2rem 1.5rem;
+      gap: 1rem;
+    }
+
+    .service-icon-wrap {
+      width: clamp(44px, 3.5vw, 64px);
+      height: clamp(44px, 3.5vw, 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $champagne;
+      transition: all 0.4s ease;
+
+      svg {
+        width: clamp(34px, 2.8vw, 48px);
+        height: clamp(34px, 2.8vw, 48px);
+        stroke: $champagne;
+        stroke-width: 1.5;
+        fill: none;
+        transition: stroke 0.3s ease, transform 0.4s ease;
+      }
+    }
+
+    .service-title {
+      font-family: $font-display;
+      font-size: clamp(1.1rem, 1.25vw, 1.5rem);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: $ink-primary;
+      transition: color 0.3s ease;
+    }
+
+    .service-desc {
+      font-size: clamp(0.75rem, 0.8vw, 0.95rem);
+      color: $ink-secondary;
+      line-height: 1.5;
+      max-width: 18vw;
+
+      @include breakpoint(mobile) {
+        max-width: 100%;
+      }
+    }
+
+    .service-hover-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, $champagne, $royal-crimson);
+      box-shadow: 0 0 12px rgba(199, 36, 46, 0.7);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:hover {
+      background: rgba($deep-umber, 0.7);
+      border-color: rgba($royal-crimson, 0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(199, 36, 46, 0.15);
+
+      .service-icon-wrap {
+        transform: scale(1.15);
+        color: $champagne;
+
+        svg {
+          stroke: $kundan-gold;
+          filter: drop-shadow(0 0 6px rgba(229, 195, 120, 0.5));
+        }
+      }
+
+      .service-title {
+        color: $champagne;
+      }
+
+      .service-hover-line {
+        width: 100%;
+      }
+    }
+  }
+}

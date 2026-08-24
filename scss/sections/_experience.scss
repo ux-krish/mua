@@ -1,0 +1,173 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+.experience-section {
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, rgba($deep-umber, 0.35) 0%, $obsidian 75%);
+  border-top: 1px solid rgba($charcoal, 0.8);
+  border-bottom: 1px solid rgba($charcoal, 0.8);
+  overflow: hidden;
+
+  .experience-timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: vw(20);
+    margin-top: vw(60);
+
+    // Continuous Horizontal Hairline Filament passing through the exact center of the node circles
+    &::before {
+      content: '';
+      position: absolute;
+      top: vw(60);
+      left: 3%;
+      width: 94%;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba($champagne, 0.2) 8%, 
+        rgba($champagne, 0.6) 25%, 
+        rgba($rose-gold, 0.8) 50%, 
+        rgba($champagne, 0.6) 75%, 
+        rgba($champagne, 0.2) 92%, 
+        transparent 100%
+      );
+      box-shadow: 0 0 12px rgba($rose-gold, 0.35);
+      z-index: 1;
+
+      @include breakpoint(tablet) { display: none; }
+      @include breakpoint(mobile) { display: none; }
+    }
+
+    @include breakpoint(laptop) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    @include breakpoint(tablet) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    @include breakpoint(mobile) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+  }
+
+  .timeline-step-card {
+    position: relative;
+    z-index: 2;
+    background: rgba($espresso, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba($charcoal, 0.9);
+    border-top: 1px solid rgba($champagne, 0.2);
+    padding: vw(32) vw(20) vw(36);
+    border-radius: vw(2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: vw(16);
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    @include focus-ring;
+
+    @include breakpoint(mobile) {
+      padding: 2rem 1.5rem;
+      gap: 1rem;
+      border-radius: 2px;
+    }
+
+    // Node Circle precisely positioned along the filament
+    .step-number-wrap {
+      position: relative;
+      z-index: 3;
+      width: vw(56);
+      height: vw(56);
+      border-radius: 50%;
+      background: #0C0A08;
+      border: 1px solid rgba($champagne, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: $font-display;
+      font-size: vw(21);
+      color: $champagne;
+      font-weight: 600;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 0 4px rgba($obsidian, 0.9);
+
+      @include breakpoint(mobile) {
+        width: 52px;
+        height: 52px;
+        font-size: 1.25rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 0 3px $obsidian;
+      }
+    }
+
+    .step-title {
+      font-family: $font-display;
+      font-size: vw(22);
+      color: $ink-primary;
+      line-height: 1.2;
+      font-weight: 500;
+      transition: color 0.3s ease;
+
+      @include breakpoint(mobile) {
+        font-size: 1.25rem;
+      }
+    }
+
+    .step-desc {
+      font-size: vw(13.5);
+      color: $ink-secondary;
+      line-height: 1.65;
+
+      @include breakpoint(mobile) {
+        font-size: 0.8125rem;
+      }
+    }
+
+    // Subtle bottom accent hairline on card
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, $rose-gold, transparent);
+      box-shadow: 0 0 10px rgba($rose-gold, 0.6);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:hover {
+      background: rgba($deep-umber, 0.65);
+      border-color: rgba($rose-gold, 0.5);
+      border-top-color: $rose-gold;
+      transform: translateY(-8px);
+      box-shadow: 0 vw(20) vw(40) rgba(0, 0, 0, 0.7);
+
+      .step-number-wrap {
+        background: linear-gradient(135deg, $royal-crimson 0%, $crimson-deep 100%);
+        color: #FFFFFF;
+        border-color: $champagne;
+        transform: scale(1.15);
+        box-shadow: 0 0 vw(25) rgba(199, 36, 46, 0.7), 0 0 0 4px rgba($obsidian, 0.8);
+      }
+
+      .step-title {
+        color: $champagne;
+      }
+
+      &::after {
+        width: 80%;
+      }
+    }
+  }
+}

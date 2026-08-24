@@ -1,0 +1,51 @@
+@use 'variables' as *;
+
+// Breakpoints
+@mixin breakpoint($point) {
+  @if $point == mobile {
+    @media (max-width: 767px) { @content; }
+  } @else if $point == tablet {
+    @media (min-width: 768px) and (max-width: 1023px) { @content; }
+  } @else if $point == laptop {
+    @media (min-width: 1024px) and (max-width: 1399px) { @content; }
+  } @else if $point == desktop {
+    @media (min-width: 1400px) { @content; }
+  } @else if $point == large {
+    @media (min-width: 1920px) { @content; }
+  }
+}
+
+// Fluid Full-Width Container helper using VW
+@mixin container {
+  width: 100%;
+  max-width: 92vw;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+
+  @include breakpoint(mobile) {
+    max-width: 90vw;
+  }
+}
+
+// Hairline Border
+@mixin hairline-border($color: $charcoal) {
+  border: 1px solid $color;
+}
+
+// Focus Visible Ring
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $rose-gold;
+    outline-offset: 3px;
+  }
+}
+
+// Glassmorphism / Elevated Surface
+@mixin elevated-surface {
+  background: rgba($espresso, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba($charcoal, 0.8);
+}

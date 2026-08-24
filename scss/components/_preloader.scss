@@ -1,0 +1,107 @@
+@use '../abstracts/variables' as *;
+
+.preloader-curtain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+
+  .curtain-panel {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #050403;
+    z-index: 1;
+    transform-origin: center;
+
+    &--top {
+      top: 0;
+    }
+
+    &--bottom {
+      bottom: 0;
+    }
+  }
+
+  .preloader-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .preloader-logo-svg {
+    width: 140px;
+    height: 60px;
+    overflow: visible;
+
+    path {
+      stroke: $kundan-gold;
+      stroke-width: 1.5;
+      fill: transparent;
+      filter: drop-shadow(0 0 8px rgba(229, 195, 120, 0.6));
+    }
+  }
+
+  .preloader-counter-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-family: $font-display;
+    font-size: 1.5rem;
+    color: $champagne;
+    letter-spacing: 0.1em;
+
+    .counter-number {
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+
+    .counter-symbol {
+      font-size: 0.875rem;
+      color: $kundan-gold;
+    }
+  }
+
+  .preloader-bar-bg {
+    width: 160px;
+    height: 1.5px;
+    background: rgba($charcoal, 0.8);
+    position: relative;
+    overflow: hidden;
+
+    .preloader-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, $champagne, $rose-gold);
+      box-shadow: 0 0 10px rgba($rose-gold, 0.8);
+      transition: width 0.15s ease-out;
+    }
+  }
+
+  .preloader-tagline {
+    font-family: $font-body;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: $ink-muted;
+  }
+
+  &.is-hidden {
+    pointer-events: none;
+    visibility: hidden;
+  }
+}

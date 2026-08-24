@@ -1,0 +1,242 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.2vw 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include breakpoint(mobile) {
+    padding: 1.2rem 0;
+  }
+
+  &.scrolled {
+    padding: 0.7vw 0;
+    background: rgba($espresso, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba($charcoal, 0.9);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+    @include breakpoint(mobile) {
+      padding: 0.8rem 0;
+    }
+  }
+
+  .nav-container {
+    @include container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+// Nav links container
+.nav-links-wrap {
+  position: relative;
+
+  @include breakpoint(mobile) {
+    display: none;
+  }
+
+  @include breakpoint(tablet) {
+    display: none;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.2rem, 1.8vw, 2.5rem);
+  }
+
+  .nav-item {
+    position: relative;
+
+    .nav-link {
+      font-family: $font-body;
+      font-size: clamp(0.7rem, 0.75vw, 0.85rem);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: $ink-secondary;
+      padding: 0.4vw 0;
+      display: inline-block;
+      transition: color 0.3s ease;
+      @include focus-ring;
+
+      &:hover, &.active {
+        color: $ink-primary;
+      }
+    }
+  }
+
+  // Sliding Rose-Gold Underline Indicator
+  .nav-active-indicator {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1.5px;
+    background: linear-gradient(90deg, $champagne, $rose-gold);
+    width: 0;
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 10px rgba($rose-gold, 0.6);
+  }
+}
+
+// Header Actions
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+
+  @include breakpoint(mobile) {
+    gap: 0.75rem;
+  }
+
+  .header-cta {
+    font-size: clamp(0.68rem, 0.72vw, 0.82rem);
+    padding: 0.55vw 1.2vw;
+
+    @include breakpoint(mobile) {
+      display: none;
+    }
+  }
+
+  .btn-drawer-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3vw;
+    width: clamp(38px, 2.6vw, 46px);
+    height: clamp(38px, 2.6vw, 46px);
+    padding: 0.5vw;
+    background: transparent;
+    border: 1px solid rgba($champagne, 0.25);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    @include focus-ring;
+
+    @include breakpoint(mobile) {
+      gap: 5px;
+      padding: 6px;
+      width: 40px;
+      height: 40px;
+    }
+
+    span {
+      display: block;
+      width: 100%;
+      height: 1.5px;
+      background: $champagne;
+      transition: all 0.3s ease;
+
+      &:nth-child(2) {
+        width: 75%;
+        margin-left: auto;
+      }
+    }
+
+    &:hover {
+      border-color: $rose-gold;
+
+      span {
+        background: $rose-gold;
+
+        &:nth-child(2) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// Mobile Fullscreen Menu Takeover
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  background: $obsidian;
+  z-index: 9995;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem $gutter-mobile 3rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .mobile-menu-close {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba($champagne, 0.3);
+      color: $champagne;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+      @include focus-ring;
+
+      &:hover {
+        border-color: $rose-gold;
+        color: $rose-gold;
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+
+    .mobile-nav-item {
+      overflow: hidden;
+
+      .mobile-nav-link {
+        font-family: $font-display;
+        font-size: clamp(2rem, 1.8rem + 2vw, 3rem);
+        color: $ink-primary;
+        display: inline-block;
+        transition: color 0.3s ease, transform 0.3s ease;
+
+        &:hover, &.active {
+          color: $rose-gold;
+          transform: translateX(10px);
+        }
+      }
+    }
+  }
+
+  .mobile-menu-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid $charcoal;
+
+    .mobile-contact-info {
+      font-size: 0.875rem;
+      color: $ink-secondary;
+    }
+  }
+}

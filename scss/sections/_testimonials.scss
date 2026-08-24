@@ -1,0 +1,169 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+
+.testimonials-section {
+  position: relative;
+  background: radial-gradient(circle at 50% 30%, rgba($deep-umber, 0.4) 0%, $obsidian 75%);
+  overflow: hidden;
+
+  .testimonials-container {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  // Large Quote Layout
+  .testimonial-quote-box {
+    max-width: vw(900);
+    margin: vw(28) auto vw(36);
+    position: relative;
+    padding: 0 vw(24);
+
+    @include breakpoint(mobile) {
+      max-width: 100%;
+      margin: 2rem auto 2.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .quote-icon-large {
+      font-family: $font-display;
+      font-size: vw(90);
+      line-height: 1;
+      color: $champagne;
+      opacity: 0.65;
+      margin-bottom: -#{vw(18)};
+      user-select: none;
+
+      @include breakpoint(mobile) {
+        font-size: 5rem;
+        margin-bottom: -1rem;
+      }
+    }
+
+    .quote-text {
+      font-family: $font-display;
+      font-size: var(--fs-h3);
+      font-style: italic;
+      color: $ink-primary;
+      line-height: 1.45;
+      min-height: vw(130);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include breakpoint(mobile) {
+        min-height: 120px;
+      }
+    }
+
+    .quote-author {
+      font-family: $font-body;
+      font-size: var(--fs-eyebrow);
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: $champagne;
+      margin-top: vw(24);
+
+      @include breakpoint(mobile) {
+        margin-top: 1.5rem;
+      }
+    }
+  }
+
+  // Interactive Avatar Switcher
+  .testimonial-avatars-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: vw(20);
+    margin-bottom: vw(48);
+
+    @include breakpoint(mobile) {
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .avatar-btn {
+      position: relative;
+      width: vw(74);
+      height: vw(74);
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba($charcoal, 0.9);
+      opacity: 0.45;
+      transform: scale(0.88);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      @include focus-ring;
+
+      @include breakpoint(mobile) {
+        width: 64px;
+        height: 64px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &.is-active {
+        opacity: 1;
+        transform: scale(1.18);
+        border-color: $champagne;
+        box-shadow: 0 0 vw(25) rgba(199, 36, 46, 0.6), 0 0 vw(12) rgba($champagne, 0.4);
+      }
+
+      &:hover:not(.is-active) {
+        opacity: 0.75;
+        transform: scale(0.98);
+        border-color: $champagne;
+      }
+    }
+  }
+
+  // Pagination Dots
+  .testimonial-dots {
+    display: flex;
+    gap: vw(8);
+    margin-top: -#{vw(28)};
+    margin-bottom: vw(42);
+
+    @include breakpoint(mobile) {
+      gap: 8px;
+      margin-top: -2rem;
+      margin-bottom: 3rem;
+    }
+
+    .dot-btn {
+      width: vw(8);
+      height: vw(8);
+      border-radius: 50%;
+      background: rgba($champagne, 0.3);
+      border: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      @include breakpoint(mobile) {
+        width: 8px;
+        height: 8px;
+      }
+
+      &.is-active {
+        background: linear-gradient(90deg, $champagne, $royal-crimson);
+        box-shadow: 0 0 10px rgba(199, 36, 46, 0.7);
+        width: vw(24);
+        border-radius: vw(4);
+
+        @include breakpoint(mobile) {
+          width: 24px;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}

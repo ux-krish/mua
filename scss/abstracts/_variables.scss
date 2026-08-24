@@ -1,0 +1,73 @@
+@use 'functions' as *;
+
+// Foundation Colors (Deep Royal Crimson-Obsidian Noir from 48495647-woman-9419481.jpg)
+$obsidian:      #0D0708;  // primary background — deep velvet obsidian with warm crimson-noir undertone
+$espresso:      #170C0F;  // elevated surfaces — nav-on-scroll, modal, cards, drawer
+$charcoal:      #261317;  // hairline borders, subtle card dividers
+$deep-umber:    #36161C;  // hover / active surface states & atmospheric depth
+
+// Signature Accents (Directly sampled from the Royal Kundan Bride)
+$royal-crimson: #C7242E;  // primary accent — vibrant bridal rose crimson & sindoor red
+$crimson-deep:  #8C1017;  // velvet shadow crimson for gradients
+$crimson-dark:  #5E0A0F;  // rich darkest velvet crimson
+$rose-gold:     #C7242E;  // mapped to royal bridal crimson for universal token compatibility
+$kundan-gold:   #E5C378;  // 22K uncut Polki & Kundan gold
+$champagne:     #EBD5B0;  // secondary accent — Polki champagne, eyebrow labels, hairlines, stars
+$warm-gold:     #D4AF37;  // tertiary — rich uncut diamond gold shimmer
+$blush-nude:    #FCECE0;  // luminous dewy skin pearl highlight
+$zardozi-emerald:#143827; // deep dupatta border emerald green (from Sanskrit calligraphy border)
+
+// Type Colors
+$ink-primary:   #FAF5EE;  // luminous pearl ivory
+$ink-secondary: #CBBDB0;  // refined champagne-tinted secondary text
+$ink-muted:     #847266;  // muted bronze tone
+
+// Functional States
+$state-success: #34D399;  // luminous emerald — form confirmation
+$state-error:   #E11D48;  // ruby alert — validation only
+
+// Fonts
+$font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+$font-body: 'Plus Jakarta Sans', 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-script: 'Cormorant Garamond', Georgia, serif;
+
+// Fluid VW Layout Variables
+$container-max-width: 90vw;
+$gutter-desktop: 5vw;
+$gutter-tablet: 5vw;
+$gutter-mobile: 5vw;
+
+:root {
+  --obsidian: #{$obsidian};
+  --espresso: #{$espresso};
+  --charcoal: #{$charcoal};
+  --deep-umber: #{$deep-umber};
+  --rose-gold: #{$rose-gold};
+  --champagne: #{$champagne};
+  --warm-gold: #{$warm-gold};
+  --blush-nude: #{$blush-nude};
+  --ink-primary: #{$ink-primary};
+  --ink-secondary: #{$ink-secondary};
+  --ink-muted: #{$ink-muted};
+  --state-success: #{$state-success};
+  --state-error: #{$state-error};
+
+  // Pure VW Typography Scale locked for exact desktop proportions
+  --fs-eyebrow:  #{vw(14)};
+  --fs-body:     #{vw(17)};
+  --fs-lead:     #{vw(21)};
+  --fs-h3:       #{vw(34)};
+  --fs-h2:       #{vw(58)};
+  --fs-h1:       #{vw(96)};
+  --fs-display:  #{vw(190)};
+
+  @media (max-width: 767px) {
+    --fs-eyebrow:  0.75rem;
+    --fs-body:     0.95rem;
+    --fs-lead:     1.1rem;
+    --fs-h3:       1.5rem;
+    --fs-h2:       2.25rem;
+    --fs-h1:       3rem;
+    --fs-display:  4.5rem;
+  }
+}
